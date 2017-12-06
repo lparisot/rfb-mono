@@ -1,11 +1,10 @@
 package com.lpa.rfb.service;
 
 import com.lpa.rfb.domain.Authority;
+import com.lpa.rfb.domain.RfbUser;
 import com.lpa.rfb.domain.User;
-import com.lpa.rfb.repository.AuthorityRepository;
-import com.lpa.rfb.repository.PersistentTokenRepository;
+import com.lpa.rfb.repository.*;
 import com.lpa.rfb.config.Constants;
-import com.lpa.rfb.repository.UserRepository;
 import com.lpa.rfb.security.AuthoritiesConstants;
 import com.lpa.rfb.security.SecurityUtils;
 import com.lpa.rfb.service.util.RandomUtil;
@@ -49,14 +48,17 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
+    private final RfbUserRepository rfbUserRepository;
+
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository, RfbUserRepository rfbUserRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.socialService = socialService;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
+        this.rfbUserRepository = rfbUserRepository;
         this.cacheManager = cacheManager;
     }
 
@@ -99,9 +101,8 @@ public class UserService {
     }
 
     public User registerUser(ManagedUserVM userDTO) {
-
         User newUser = new User();
-        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.RUNNER);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
         newUser.setLogin(userDTO.getLogin());
@@ -119,6 +120,14 @@ public class UserService {
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+
+        // create and save RfbUser entity
+        RfbUser newRfbUser = new RfbUser();
+        newRfbUser.setUser(newUser);
+        newRfbUser.setHomeLocation(userDTO.getHomeLocation());
+        newRfbUser.setRfbEventAttendances(userDTO.getRfbEventAttendances());
+        rfbUserRepository.save(newRfbUser);
+
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }

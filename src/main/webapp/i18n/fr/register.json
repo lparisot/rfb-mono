@@ -2,7 +2,8 @@
     "register": {
         "title": "Création de compte utilisateur",
         "form": {
-            "button": "Enregistrement"
+            "button": "Enregistrement",
+            "selecthome": "Sélectionner votre ville"
         },
         "messages": {
             "validate": {

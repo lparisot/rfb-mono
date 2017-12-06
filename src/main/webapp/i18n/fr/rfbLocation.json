@@ -4,7 +4,8 @@
             "home": {
                 "title": "RfbLocations",
                 "createLabel": "Créer un nouveau Rfb Location",
-                "createOrEditLabel": "Créer ou éditer un Rfb Location"
+                "createOrEditLabel": "Créer ou éditer un Rfb Location",
+                "location": "Votre ville"
             },
             "created": "Un nouveau Rfb Location a été créé avec l'identifiant {{ param }}",
             "updated": "Le Rfb Location avec l'identifiant {{ param }} a été mis à jour",

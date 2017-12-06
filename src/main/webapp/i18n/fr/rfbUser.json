@@ -17,6 +17,7 @@
             },
             "userName": "User Name",
             "homeLocation": "Home Location",
+            "user": "User",
             "rfbEventAttendance": "Rfb Event Attendance"
         }
     }

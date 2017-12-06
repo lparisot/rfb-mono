@@ -10,6 +10,7 @@ import { RfbUser } from './rfb-user.model';
 import { RfbUserPopupService } from './rfb-user-popup.service';
 import { RfbUserService } from './rfb-user.service';
 import { RfbLocation, RfbLocationService } from '../rfb-location';
+import { User, UserService } from '../../shared';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -23,11 +24,14 @@ export class RfbUserDialogComponent implements OnInit {
 
     homelocations: RfbLocation[];
 
+    users: User[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private rfbUserService: RfbUserService,
         private rfbLocationService: RfbLocationService,
+        private userService: UserService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -47,6 +51,8 @@ export class RfbUserDialogComponent implements OnInit {
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
                 }
             }, (res: ResponseWrapper) => this.onError(res.json));
+        this.userService.query()
+            .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -84,6 +90,10 @@ export class RfbUserDialogComponent implements OnInit {
     }
 
     trackRfbLocationById(index: number, item: RfbLocation) {
+        return item.id;
+    }
+
+    trackUserById(index: number, item: User) {
         return item.id;
     }
 }

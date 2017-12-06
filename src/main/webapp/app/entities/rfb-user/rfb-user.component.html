@@ -19,6 +19,7 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="rfbApp.rfbUser.userName">User Name</span></th>
             <th><span jhiTranslate="rfbApp.rfbUser.homeLocation">Home Location</span></th>
+            <th><span jhiTranslate="rfbApp.rfbUser.user">User</span></th>
             <th></th>
             </tr>
             </thead>
@@ -30,6 +31,9 @@
                     <div *ngIf="rfbUser.homeLocationId">
                         <a [routerLink]="['../rfb-location', rfbUser.homeLocationId  ]" >{{rfbUser.homeLocationId}}</a>
                     </div>
+                </td>
+                <td>
+                    {{rfbUser.userId}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

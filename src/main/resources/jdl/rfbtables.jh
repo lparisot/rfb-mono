@@ -23,7 +23,8 @@ relationship OneToMany {
 }
 
 relationship OneToOne {
-    RfbUser{homeLocation} to RfbLocation
+    RfbUser{homeLocation} to RfbLocation,
+    RfbUser{user} to User
 }
 
 dto * with mapstruct

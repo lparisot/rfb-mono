@@ -50,6 +50,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="homeLocation" class="form-control-label" jhiTranslate="rfbApp.rfbLocation.home.location">Home Location</label>
+                    <select class="form-control" id="homeLocation" name="homeLocation" [(ngModel)]="registerAccount.homeLocation" #homeLocation="ngModel" required>
+                        <option [value]="null" [selected]="" jhiTranslate="register.form.selecthome">Select Home Location</option>
+                        <option *ngFor="let location of locations" [value]="location.id">{{location.locationName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="email" jhiTranslate="global.form.email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" #email="ngModel" placeholder="{{'global.form.email.placeholder' | translate}}"
                             [(ngModel)]="registerAccount.email" minlength=5 maxlength=100 email required>

@@ -5,6 +5,7 @@ export class RfbUser implements BaseEntity {
         public id?: number,
         public userName?: string,
         public homeLocationId?: number,
+        public userId?: number,
         public rfbEventAttendances?: BaseEntity[],
     ) {
     }

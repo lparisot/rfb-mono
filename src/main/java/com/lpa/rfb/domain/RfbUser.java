@@ -31,6 +31,10 @@ public class RfbUser implements Serializable {
     @JoinColumn(unique = true)
     private RfbLocation homeLocation;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private User user;
+
     @OneToMany(mappedBy = "rfbUser")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -69,6 +73,19 @@ public class RfbUser implements Serializable {
 
     public void setHomeLocation(RfbLocation rfbLocation) {
         this.homeLocation = rfbLocation;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public RfbUser user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<RfbEventAttendance> getRfbEventAttendances() {

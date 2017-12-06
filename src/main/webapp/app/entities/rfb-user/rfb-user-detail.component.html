@@ -14,6 +14,10 @@
                 <a [routerLink]="['/rfb-location', rfbUser.homeLocationId]">{{rfbUser.homeLocationId}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="rfbApp.rfbUser.user">User</span></dt>
+        <dd>
+            {{rfbUser.userId}}
+        </dd>
     </dl>
 
     <button type="submit"
