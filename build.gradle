@@ -87,6 +87,11 @@ test {
     // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
     // ignoreFailures true
     reports.html.enabled = false
+
+    // set heap size for the test JVM
+    // or we can have "Process 'Gradle Test Executor 1' finished with non-zero exit value 137" in CircleCI
+    minHeapSize = "128m"
+    maxHeapSize = "512m"
 }
 
 task testReport(type: TestReport) {
