@@ -1,0 +1,23 @@
+{
+    "rfbApp": {
+        "rfbLocation" : {
+            "home": {
+                "title": "RfbLocations",
+                "createLabel": "Créer un nouveau Rfb Location",
+                "createOrEditLabel": "Créer ou éditer un Rfb Location"
+            },
+            "created": "Un nouveau Rfb Location a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Rfb Location avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Rfb Location avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Rfb Location {{ id }} ?"
+            },
+            "detail": {
+                "title": "Rfb Location"
+            },
+            "locationName": "Location Name",
+            "runDayOfWeek": "Run Day Of Week",
+            "rfbEvent": "Rfb Event"
+        }
+    }
+}

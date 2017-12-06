@@ -1,0 +1,24 @@
+{
+    "rfbApp": {
+        "rfbEvent" : {
+            "home": {
+                "title": "RfbEvents",
+                "createLabel": "Créer un nouveau Rfb Event",
+                "createOrEditLabel": "Créer ou éditer un Rfb Event"
+            },
+            "created": "Un nouveau Rfb Event a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Rfb Event avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Rfb Event avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Rfb Event {{ id }} ?"
+            },
+            "detail": {
+                "title": "Rfb Event"
+            },
+            "eventDate": "Event Date",
+            "eventCode": "Event Code",
+            "rfbLocation": "Rfb Location",
+            "rfbEventAttendance": "Rfb Event Attendance"
+        }
+    }
+}

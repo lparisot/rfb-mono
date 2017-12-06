@@ -1,5 +1,36 @@
-# rfb
+[![CircleCI](https://circleci.com/gh/lparisot/rfb-mono.svg?style=svg)](https://circleci.com/gh/lparisot/rfb-mono)
+[![codecov](https://codecov.io/gh/lparisot/rfb-mono/branch/master/graph/badge.svg)](https://codecov.io/gh/lparisot/rfb-mono)
+
+# RFB
 This application was generated using JHipster 4.10.2, you can find documentation and help at [http://www.jhipster.tech/documentation-archive/v4.10.2](http://www.jhipster.tech/documentation-archive/v4.10.2).
+
+## Functional requirements
+
+* Users can login by email / password or FaceBook
+* Facebook login should capture email
+* Need lost password email
+* Need to track RFB run locations, and schedule
+* System should create a unique code for runners to sign into run
+* System need to support multiple security roles:
+    * root - system admin
+    * admin - super user for application
+        * admin user can promote  demote users to admin or organizer users
+        * admin user can create run locations
+        * admin user can set scheduled runs
+        * admin user can access unique run code
+    * organizer - able to access unique run code
+        * organizer user can access unique run code
+    * runner - able to enter unique run code
+    * all user can:
+        * change their password
+        * change their email
+        * set home location
+* Each location will show a leader board of users
+* After 10 failed login attempts, system will lock out user account for 10 minutes
+* System will require a minimum password length of 6 characters
+* System will automatically generate a unique code for each run event
+* When use enters run code, system will log code used, user and date time
+
 
 ## Development
 
@@ -21,7 +52,7 @@ We use yarn scripts and [Webpack][] as our build system.
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
-    ./gradlew
+    ./mvnw
     yarn start
 
 [Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
@@ -95,12 +126,12 @@ will generate few files:
 
 To optimize the rfb application for production, run:
 
-    ./gradlew -Pprod clean bootRepackage
+    ./mvnw -Pprod clean package
 
 This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
 To ensure everything worked, run:
 
-    java -jar build/libs/*.war
+    java -jar target/*.war
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
@@ -110,7 +141,7 @@ Refer to [Using JHipster in production][] for more details.
 
 To launch your application's tests, run:
 
-    ./gradlew test
+    ./mvnw clean test
 
 ### Client tests
 
@@ -136,7 +167,7 @@ To stop it and remove the container, run:
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
 
-    ./gradlew bootRepackage -Pprod buildDocker
+    ./mvnw package -Pprod dockerfile:build
 
 Then run:
 
@@ -144,9 +175,14 @@ Then run:
 
 For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
-## Continuous Integration (optional)
+## Continuous Integration
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+CircleCI is used to do the continuous integration.
+
+If you want to push the docker image of your project, you must declare three environment variables in your Circle CI project:
+* DOCKER_HUB_EMAIL: your docker hub email
+* DOCKER_HUB_USER: your docker hub account
+* DOCKER_HUB_PWD: your docker hub password
 
 [JHipster Homepage and latest documentation]: http://www.jhipster.tech
 [JHipster 4.10.2 archive]: http://www.jhipster.tech/documentation-archive/v4.10.2

@@ -1,0 +1,23 @@
+{
+    "rfbApp": {
+        "rfbEventAttendance" : {
+            "home": {
+                "title": "RfbEventAttendances",
+                "createLabel": "Créer un nouveau Rfb Event Attendance",
+                "createOrEditLabel": "Créer ou éditer un Rfb Event Attendance"
+            },
+            "created": "Un nouveau Rfb Event Attendance a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Rfb Event Attendance avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Rfb Event Attendance avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Rfb Event Attendance {{ id }} ?"
+            },
+            "detail": {
+                "title": "Rfb Event Attendance"
+            },
+            "attendanceDate": "Attendance Date",
+            "rfbEvent": "Rfb Event",
+            "rfbUser": "Rfb User"
+        }
+    }
+}

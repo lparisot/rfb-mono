@@ -1,0 +1,23 @@
+{
+    "rfbApp": {
+        "rfbUser" : {
+            "home": {
+                "title": "RfbUsers",
+                "createLabel": "Créer un nouveau Rfb User",
+                "createOrEditLabel": "Créer ou éditer un Rfb User"
+            },
+            "created": "Un nouveau Rfb User a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Rfb User avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Rfb User avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Rfb User {{ id }} ?"
+            },
+            "detail": {
+                "title": "Rfb User"
+            },
+            "userName": "User Name",
+            "homeLocation": "Home Location",
+            "rfbEventAttendance": "Rfb Event Attendance"
+        }
+    }
+}

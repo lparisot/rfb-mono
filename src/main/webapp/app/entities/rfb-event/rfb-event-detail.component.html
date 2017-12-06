@@ -1,0 +1,35 @@
+
+<div *ngIf="rfbEvent">
+    <h2><span jhiTranslate="rfbApp.rfbEvent.detail.title">Rfb Event</span> {{rfbEvent.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="rfbApp.rfbEvent.eventDate">Event Date</span></dt>
+        <dd>
+            <span>{{rfbEvent.eventDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="rfbApp.rfbEvent.eventCode">Event Code</span></dt>
+        <dd>
+            <span>{{rfbEvent.eventCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="rfbApp.rfbEvent.rfbLocation">Rfb Location</span></dt>
+        <dd>
+            <div *ngIf="rfbEvent.rfbLocationId">
+                <a [routerLink]="['/rfb-location', rfbEvent.rfbLocationId]">{{rfbEvent.rfbLocationId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rfb-event/'+ rfbEvent.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
