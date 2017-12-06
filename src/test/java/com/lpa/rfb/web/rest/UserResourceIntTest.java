@@ -143,7 +143,7 @@ public class UserResourceIntTest {
 
         // Create the User
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             null,
             DEFAULT_LOGIN,
@@ -158,6 +158,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            null,
+            new HashSet<>(),
             authorities);
 
         restUserMockMvc.perform(post("/api/users")
@@ -183,7 +185,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             1L,
             DEFAULT_LOGIN,
@@ -198,6 +200,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            null,
+            new HashSet<>(),
             authorities);
 
         // An entity with an existing ID cannot be created, so this API call must fail
@@ -219,7 +223,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             null,
             DEFAULT_LOGIN, // this login should already be used
@@ -234,6 +238,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            null,
+            new HashSet<>(),
             authorities);
 
         // Create the User
@@ -255,7 +261,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             null,
             "anotherlogin",
@@ -270,6 +276,8 @@ public class UserResourceIntTest {
             null,
             null,
             null,
+            null,
+            new HashSet<>(),
             authorities);
 
         // Create the User
@@ -338,7 +346,7 @@ public class UserResourceIntTest {
         User updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
             updatedUser.getLogin(),
@@ -353,6 +361,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            new HashSet<>(),
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -382,7 +392,7 @@ public class UserResourceIntTest {
         User updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
             UPDATED_LOGIN,
@@ -397,6 +407,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            new HashSet<>(),
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -437,7 +449,7 @@ public class UserResourceIntTest {
         User updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
             updatedUser.getLogin(),
@@ -452,6 +464,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            new HashSet<>(),
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -481,7 +495,7 @@ public class UserResourceIntTest {
         User updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
-        authorities.add(AuthoritiesConstants.USER);
+        authorities.add(AuthoritiesConstants.RUNNER);
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
             "jhipster", // this login should already be used by anotherUser
@@ -496,6 +510,8 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
+            null,
+            new HashSet<>(),
             authorities);
 
         restUserMockMvc.perform(put("/api/users")
@@ -530,7 +546,7 @@ public class UserResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").value(containsInAnyOrder(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)));
+            .andExpect(jsonPath("$").value(containsInAnyOrder(AuthoritiesConstants.ORGANIZER, AuthoritiesConstants.RUNNER, AuthoritiesConstants.ADMIN)));
     }
 
     @Test
@@ -569,7 +585,7 @@ public class UserResourceIntTest {
             null,
             DEFAULT_LOGIN,
             null,
-            Stream.of(AuthoritiesConstants.USER).collect(Collectors.toSet()));
+            Stream.of(AuthoritiesConstants.RUNNER).collect(Collectors.toSet()));
         User user = userMapper.userDTOToUser(userDTO);
         assertThat(user.getId()).isEqualTo(DEFAULT_ID);
         assertThat(user.getLogin()).isEqualTo(DEFAULT_LOGIN);
@@ -583,7 +599,7 @@ public class UserResourceIntTest {
         assertThat(user.getCreatedDate()).isNotNull();
         assertThat(user.getLastModifiedBy()).isNull();
         assertThat(user.getLastModifiedDate()).isNotNull();
-        assertThat(user.getAuthorities()).extracting("name").containsExactly(AuthoritiesConstants.USER);
+        assertThat(user.getAuthorities()).extracting("name").containsExactly(AuthoritiesConstants.RUNNER);
     }
 
     @Test
@@ -596,7 +612,7 @@ public class UserResourceIntTest {
 
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.USER);
+        authority.setName(AuthoritiesConstants.RUNNER);
         authorities.add(authority);
         user.setAuthorities(authorities);
 
@@ -614,7 +630,7 @@ public class UserResourceIntTest {
         assertThat(userDTO.getCreatedDate()).isEqualTo(user.getCreatedDate());
         assertThat(userDTO.getLastModifiedBy()).isEqualTo(DEFAULT_LOGIN);
         assertThat(userDTO.getLastModifiedDate()).isEqualTo(user.getLastModifiedDate());
-        assertThat(userDTO.getAuthorities()).containsExactly(AuthoritiesConstants.USER);
+        assertThat(userDTO.getAuthorities()).containsExactly(AuthoritiesConstants.RUNNER);
         assertThat(userDTO.toString()).isNotNull();
     }
 
@@ -633,10 +649,10 @@ public class UserResourceIntTest {
         authorityB.setName(AuthoritiesConstants.ADMIN);
         assertThat(authorityA).isNotEqualTo(authorityB);
 
-        authorityA.setName(AuthoritiesConstants.USER);
+        authorityA.setName(AuthoritiesConstants.RUNNER);
         assertThat(authorityA).isNotEqualTo(authorityB);
 
-        authorityB.setName(AuthoritiesConstants.USER);
+        authorityB.setName(AuthoritiesConstants.RUNNER);
         assertThat(authorityA).isEqualTo(authorityB);
         assertThat(authorityA.hashCode()).isEqualTo(authorityB.hashCode());
     }

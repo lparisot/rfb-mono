@@ -179,7 +179,9 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
+            new HashSet<>(Collections.singletonList(AuthoritiesConstants.RUNNER)));
 
         restMvc.perform(
             post("/api/register")
@@ -208,7 +210,9 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
+            new HashSet<>(Collections.singletonList(AuthoritiesConstants.RUNNER)));
 
         restUserMockMvc.perform(
             post("/api/register")
@@ -237,7 +241,9 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
+            new HashSet<>(Collections.singletonList(AuthoritiesConstants.RUNNER)));
 
         restUserMockMvc.perform(
             post("/api/register")
@@ -266,7 +272,9 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
+            new HashSet<>(Collections.singletonList(AuthoritiesConstants.RUNNER)));
 
         restUserMockMvc.perform(
             post("/api/register")
@@ -295,7 +303,9 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
+            new HashSet<>(Collections.singletonList(AuthoritiesConstants.RUNNER)));
 
         restUserMockMvc.perform(
             post("/api/register")
@@ -325,11 +335,14 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
+            new HashSet<>(Collections.singletonList(AuthoritiesConstants.RUNNER)));
 
         // Duplicate login, different email
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), validUser.getLogin(), validUser.getPassword(), validUser.getFirstName(), validUser.getLastName(),
-            "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
+            "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(),
+            validUser.getHomeLocation(), validUser.getRfbEventAttendances(), validUser.getAuthorities());
 
         // Good user
         restMvc.perform(
@@ -367,11 +380,14 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
-            new HashSet<>(Collections.singletonList(AuthoritiesConstants.USER)));
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
+            new HashSet<>(Collections.singletonList(AuthoritiesConstants.RUNNER)));
 
         // Duplicate email, different login
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), "johnjr", validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
-            validUser.getEmail(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
+            validUser.getEmail(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(),
+            validUser.getHomeLocation(), validUser.getRfbEventAttendances(), validUser.getAuthorities());
 
         // Good user
         restMvc.perform(
@@ -389,7 +405,8 @@ public class AccountResourceIntTest {
 
         // Duplicate email - with uppercase email address
         final ManagedUserVM userWithUpperCaseEmail = new ManagedUserVM(validUser.getId(), "johnjr", validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
-                validUser.getEmail().toUpperCase(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
+                validUser.getEmail().toUpperCase(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(),
+                validUser.getHomeLocation(), validUser.getRfbEventAttendances(), validUser.getAuthorities());
 
         restMvc.perform(
             post("/api/register")
@@ -418,6 +435,8 @@ public class AccountResourceIntTest {
             null,                   // createdDate
             null,                   // lastModifiedBy
             null,                   // lastModifiedDate
+            null,                   // homeLocation
+            new HashSet<>(),                    // eventAttendances
             new HashSet<>(Collections.singletonList(AuthoritiesConstants.ADMIN)));
 
         restMvc.perform(
@@ -429,7 +448,7 @@ public class AccountResourceIntTest {
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
         assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.USER));
+            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.RUNNER));
     }
 
     @Test
