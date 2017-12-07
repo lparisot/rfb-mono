@@ -4,6 +4,7 @@ import com.lpa.rfb.RfbApp;
 import com.lpa.rfb.domain.Authority;
 import com.lpa.rfb.domain.User;
 import com.lpa.rfb.repository.AuthorityRepository;
+import com.lpa.rfb.repository.RfbUserRepository;
 import com.lpa.rfb.repository.UserRepository;
 import com.lpa.rfb.security.AuthoritiesConstants;
 import com.lpa.rfb.service.MailService;
@@ -50,7 +51,11 @@ public class SocialServiceIntTest {
     @Mock
     private ConnectionRepository mockConnectionRepository;
 
+    @Mock
+    private RfbUserRepository mockRfbUserRepository;
+
     private SocialService socialService;
+
 
     @Before
     public void setup() {
@@ -60,7 +65,7 @@ public class SocialServiceIntTest {
         when(mockUsersConnectionRepository.createConnectionRepository(anyString())).thenReturn(mockConnectionRepository);
 
         socialService = new SocialService(mockUsersConnectionRepository, authorityRepository,
-                passwordEncoder, userRepository, mockMailService);
+                passwordEncoder, userRepository, mockMailService, mockRfbUserRepository);
     }
 
     @Test

@@ -31,6 +31,12 @@ This application was generated using JHipster 4.10.2, you can find documentation
 * System will automatically generate a unique code for each run event
 * When use enters run code, system will log code used, user and date time
 
+## Environment variables
+
+If you want to activate social authentication, you must provide environment variables:
+* SPRING_SOCIAL_FACEBOOK_CLIENT_ID and SPRING_SOCIAL_FACEBOOK_CLIENT_SECRET
+* SPRING_SOCIAL_GOOGLE_CLIENT_ID and SPRING_SOCIAL_GOOGLE_CLIENT_SECRET
+* SPRING_SOCIAL_TWITTER_CLIENT_ID and SPRING_SOCIAL_TWITTER_CLIENT_SECRET
 
 ## Development
 
