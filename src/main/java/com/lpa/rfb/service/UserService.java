@@ -125,7 +125,10 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
 
-        RfbLocation location = rfbLocationRepository.findOne(userDTO.getHomeLocation());
+        RfbLocation location = null;
+        if (userDTO.getHomeLocation() != null) {
+            location = rfbLocationRepository.findOne(userDTO.getHomeLocation());
+        }
 
         // create and save RfbUser entity
         RfbUser newRfbUser = new RfbUser();
