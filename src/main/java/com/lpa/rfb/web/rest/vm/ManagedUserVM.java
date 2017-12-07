@@ -39,7 +39,9 @@ public class ManagedUserVM extends UserDTO {
             createdBy, createdDate, lastModifiedBy, lastModifiedDate, authorities);
         this.password = password;
         this.homeLocation = homeLocation;
-        this.rfbEventAttendances = eventAttendances;
+        if (eventAttendances != null) {
+            this.rfbEventAttendances = eventAttendances;
+        }
     }
 
     public String getPassword() {

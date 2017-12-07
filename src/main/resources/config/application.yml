@@ -122,3 +122,8 @@ jhipster:
 # ===================================================================
 
 application:
+
+logging:
+    level:
+        com.lpa.rfb.service: debug
+        com.lpa.rfb.app.logging: error
