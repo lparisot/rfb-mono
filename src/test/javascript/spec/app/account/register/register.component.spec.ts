@@ -7,6 +7,7 @@ import { RfbTestModule } from '../../../test.module';
 import { LoginModalService, EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '../../../../../../main/webapp/app/shared';
 import { Register } from '../../../../../../main/webapp/app/account/register/register.service';
 import { RegisterComponent } from '../../../../../../main/webapp/app/account/register/register.component';
+import { RfbLocationService } from '../../../../../../main/webapp/app/entities/rfb-location/rfb-location.service';
 
 describe('Component Tests', () => {
 
@@ -24,6 +25,7 @@ describe('Component Tests', () => {
                         provide: LoginModalService,
                         useValue: null
                     },
+                    RfbLocationService,
                     {
                         provide: Renderer,
                         useValue: null
@@ -62,6 +64,7 @@ describe('Component Tests', () => {
                     tick();
 
                     expect(service.save).toHaveBeenCalledWith({
+                        homeLocation: null,
                         password: 'password',
                         langKey: 'fr'
                     });
