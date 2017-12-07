@@ -22,7 +22,7 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
-    private RfbLocation homeLocation;
+    private Long homeLocation;
 
     private Set<RfbEventAttendance> rfbEventAttendances = new HashSet<>();
 
@@ -33,7 +33,7 @@ public class ManagedUserVM extends UserDTO {
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String imageUrl, String langKey,
                          String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-                         RfbLocation homeLocation, Set<RfbEventAttendance> eventAttendances, Set<String> authorities) {
+                         Long homeLocation, Set<RfbEventAttendance> eventAttendances, Set<String> authorities) {
 
         super(id, login, firstName, lastName, email, activated, imageUrl, langKey,
             createdBy, createdDate, lastModifiedBy, lastModifiedDate, authorities);
@@ -46,7 +46,7 @@ public class ManagedUserVM extends UserDTO {
         return password;
     }
 
-    public RfbLocation getHomeLocation() {
+    public Long getHomeLocation() {
         return homeLocation;
     }
 

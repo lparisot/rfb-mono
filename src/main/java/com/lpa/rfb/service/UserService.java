@@ -1,6 +1,7 @@
 package com.lpa.rfb.service;
 
 import com.lpa.rfb.domain.Authority;
+import com.lpa.rfb.domain.RfbLocation;
 import com.lpa.rfb.domain.RfbUser;
 import com.lpa.rfb.domain.User;
 import com.lpa.rfb.repository.*;
@@ -50,15 +51,18 @@ public class UserService {
 
     private final RfbUserRepository rfbUserRepository;
 
+    private final RfbLocationRepository rfbLocationRepository;
+
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository, RfbUserRepository rfbUserRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository, RfbUserRepository rfbUserRepository, RfbLocationRepository rfbLocationRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.socialService = socialService;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
         this.rfbUserRepository = rfbUserRepository;
+        this.rfbLocationRepository = rfbLocationRepository;
         this.cacheManager = cacheManager;
     }
 
@@ -121,11 +125,15 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
 
+        RfbLocation location = rfbLocationRepository.findOne(userDTO.getHomeLocation());
+
         // create and save RfbUser entity
         RfbUser newRfbUser = new RfbUser();
         newRfbUser.setUser(newUser);
-        newRfbUser.setHomeLocation(userDTO.getHomeLocation());
-        newRfbUser.setRfbEventAttendances(userDTO.getRfbEventAttendances());
+        newRfbUser.setUserName(newUser.getLogin());
+        if (location != null) {
+            newRfbUser.setHomeLocation(location);
+        }
         rfbUserRepository.save(newRfbUser);
 
         log.debug("Created Information for User: {}", newUser);
