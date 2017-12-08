@@ -1,9 +1,13 @@
 {
     "home": {
-        "title": "Bienvenue, Java Hipster !",
+        "title": "Running for Brews App",
         "subtitle": "Ceci est votre page d'accueil",
         "logged": {
             "message": "Vous êtes connecté en tant que \"{{username}}\"."
+        },
+        "events": {
+            "title": "Running for Brews 5k Evènements",
+            "header": "Nous adorons 5k Running & Craft Brews"
         },
         "question": "Si vous avez des questions à propos de JHipster :",
         "link": {
