@@ -2,23 +2,23 @@
     "rfbApp": {
         "rfbUser" : {
             "home": {
-                "title": "Rfb Users",
-                "createLabel": "Create a new Rfb User",
-                "createOrEditLabel": "Create or edit a Rfb User"
+                "title": "Runners",
+                "createLabel": "Create a new runner",
+                "createOrEditLabel": "Create or edit a runner"
             },
-            "created": "A new Rfb User is created with identifier {{ param }}",
-            "updated": "A Rfb User is updated with identifier {{ param }}",
-            "deleted": "A Rfb User is deleted with identifier {{ param }}",
+            "created": "A new runner is created with identifier {{ param }}",
+            "updated": "A runner is updated with identifier {{ param }}",
+            "deleted": "A runner is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Rfb User {{ id }}?"
+                "question": "Are you sure you want to delete this runner {{ id }}?"
             },
             "detail": {
-                "title": "Rfb User"
+                "title": "Runner"
             },
-            "userName": "User Name",
+            "userName": "Runner Name",
             "homeLocation": "Home Location",
-            "user": "User",
-            "rfbEventAttendance": "Rfb Event Attendance"
+            "user": "Runner",
+            "rfbEventAttendance": "Event Attendance"
         }
     }
 }

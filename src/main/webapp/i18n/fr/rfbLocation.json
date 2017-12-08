@@ -2,23 +2,23 @@
     "rfbApp": {
         "rfbLocation" : {
             "home": {
-                "title": "RfbLocations",
-                "createLabel": "Créer un nouveau Rfb Location",
-                "createOrEditLabel": "Créer ou éditer un Rfb Location",
+                "title": "Lieux",
+                "createLabel": "Créer un nouveau lieu",
+                "createOrEditLabel": "Créer ou éditer un lieu",
                 "location": "Votre ville"
             },
-            "created": "Un nouveau Rfb Location a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Rfb Location avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Rfb Location avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouveau lieu a été créé avec l'identifiant {{ param }}",
+            "updated": "Le lieu avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le lieu avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Rfb Location {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer le lieu {{ id }} ?"
             },
             "detail": {
-                "title": "Rfb Location"
+                "title": "Lieux"
             },
-            "locationName": "Location Name",
-            "runDayOfWeek": "Run Day Of Week",
-            "rfbEvent": "Rfb Event"
+            "locationName": "Nom du lieu",
+            "runDayOfWeek": "Jour de la course",
+            "rfbEvent": "Evènement"
         }
     }
 }

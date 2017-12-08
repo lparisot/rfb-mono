@@ -2,22 +2,22 @@
     "rfbApp": {
         "rfbEventAttendance" : {
             "home": {
-                "title": "Rfb Event Attendances",
-                "createLabel": "Create a new Rfb Event Attendance",
-                "createOrEditLabel": "Create or edit a Rfb Event Attendance"
+                "title": "Event Attendances",
+                "createLabel": "Create a new event attendance",
+                "createOrEditLabel": "Create or edit an event attendance"
             },
-            "created": "A new Rfb Event Attendance is created with identifier {{ param }}",
-            "updated": "A Rfb Event Attendance is updated with identifier {{ param }}",
-            "deleted": "A Rfb Event Attendance is deleted with identifier {{ param }}",
+            "created": "A new event attendance is created with identifier {{ param }}",
+            "updated": "An event attendance is updated with identifier {{ param }}",
+            "deleted": "An event attendance is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Rfb Event Attendance {{ id }}?"
+                "question": "Are you sure you want to delete event attendance {{ id }}?"
             },
             "detail": {
-                "title": "Rfb Event Attendance"
+                "title": "Event Attendance"
             },
             "attendanceDate": "Attendance Date",
-            "rfbEvent": "Rfb Event",
-            "rfbUser": "Rfb User"
+            "rfbEvent": "Event",
+            "rfbUser": "Runner"
         }
     }
 }

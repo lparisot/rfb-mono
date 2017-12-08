@@ -2,23 +2,23 @@
     "rfbApp": {
         "rfbUser" : {
             "home": {
-                "title": "RfbUsers",
-                "createLabel": "Créer un nouveau Rfb User",
-                "createOrEditLabel": "Créer ou éditer un Rfb User"
+                "title": "Coureurs",
+                "createLabel": "Créer un nouveau coureur",
+                "createOrEditLabel": "Créer ou éditer un coureur"
             },
-            "created": "Un nouveau Rfb User a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Rfb User avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Rfb User avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouveau coureur a été créé avec l'identifiant {{ param }}",
+            "updated": "Le coureur avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le coureur avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Rfb User {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer le coureur {{ id }} ?"
             },
             "detail": {
-                "title": "Rfb User"
+                "title": "Coureur"
             },
-            "userName": "User Name",
-            "homeLocation": "Home Location",
-            "user": "User",
-            "rfbEventAttendance": "Rfb Event Attendance"
+            "userName": "Nom du coureur",
+            "homeLocation": "Lieu",
+            "user": "Coureur",
+            "rfbEventAttendance": "Participation à l'évènement"
         }
     }
 }
