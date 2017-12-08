@@ -132,5 +132,5 @@
         "emailexists": "Email déjà utilisé !",
         "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !"
     },
-    "footer": "Ceci est votre pied de page"
+    "footer": "<small>&copy; Compagnie {{currentYear}} The Running for Brew. Tous droits réservés.</small>"
 }
