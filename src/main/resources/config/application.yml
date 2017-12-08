@@ -12,6 +12,7 @@
 # Standard Spring Boot properties.
 # Full reference is available at:
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
 # ===================================================================
 
 management:
@@ -123,7 +124,7 @@ jhipster:
 
 application:
 
-logging:
-    level:
-        com.lpa.rfb.service: debug
-        com.lpa.rfb.app.logging: error
+#logging:
+#    level:
+#        com.lpa.rfb.service: debug
+#        com.lpa.rfb.app.logging: error

@@ -12,6 +12,7 @@ import { StateStorageService } from '../auth/state-storage.service';
 })
 export class JhiLoginModalComponent implements AfterViewInit {
     authenticationError: boolean;
+    blockedError: boolean;
     password: string;
     rememberMe: boolean;
     username: string;
@@ -40,6 +41,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
             rememberMe: true
         };
         this.authenticationError = false;
+        this.blockedError = false;
         this.activeModal.dismiss('cancel');
     }
 
@@ -50,6 +52,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
             rememberMe: this.rememberMe
         }).then(() => {
             this.authenticationError = false;
+            this.blockedError = false;
             this.activeModal.dismiss('login success');
             if (this.router.url === '/register' || (/^\/activate\//.test(this.router.url)) ||
                 (/^\/reset\//.test(this.router.url))) {
@@ -68,8 +71,13 @@ export class JhiLoginModalComponent implements AfterViewInit {
                 this.stateStorageService.storeUrl(null);
                 this.router.navigate([redirect]);
             }
-        }).catch(() => {
-            this.authenticationError = true;
+        }).catch((error) => {
+            const errorMessage: string = JSON.parse(error._body).message;
+            if (errorMessage.includes('blocked')) {
+              this.blockedError = true;
+            } else {
+              this.authenticationError = true;
+            }
         });
     }
 
