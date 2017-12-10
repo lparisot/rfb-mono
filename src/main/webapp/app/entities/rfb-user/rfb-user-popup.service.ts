@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RfbUser } from './rfb-user.model';
 import { RfbUserService } from './rfb-user.service';
+import { RfbLocation } from '../rfb-location';
+import { User } from '../../shared/user/user.model';
 
 @Injectable()
 export class RfbUserPopupService {
@@ -41,6 +43,11 @@ export class RfbUserPopupService {
 
     rfbUserModalRef(component: Component, rfbUser: RfbUser): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        console.log('rfbUserModalRef: ' + JSON.stringify(rfbUser));
+        if (typeof rfbUser.rfbLocationDTO === 'undefined' || rfbUser.rfbLocationDTO === null) {
+            rfbUser.rfbLocationDTO = new RfbLocation();
+        }
+        console.log('rfbUserModalRef: ' + JSON.stringify(rfbUser));
         modalRef.componentInstance.rfbUser = rfbUser;
         modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });

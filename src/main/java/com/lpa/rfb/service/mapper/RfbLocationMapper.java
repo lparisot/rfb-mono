@@ -11,8 +11,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface RfbLocationMapper extends EntityMapper<RfbLocationDTO, RfbLocation> {
 
-    
-
     @Mapping(target = "rfbEvents", ignore = true)
     RfbLocation toEntity(RfbLocationDTO rfbLocationDTO);
 

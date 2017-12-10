@@ -15,9 +15,9 @@ public class RfbUserDTO implements Serializable {
 
     private String userName;
 
-    private Long homeLocationId;
+    private RfbLocationDTO rfbLocationDTO;
 
-    private Long userId;
+    private UserDTO userDTO;
 
     public Long getId() {
         return id;
@@ -35,20 +35,20 @@ public class RfbUserDTO implements Serializable {
         this.userName = userName;
     }
 
-    public Long getHomeLocationId() {
-        return homeLocationId;
+    public RfbLocationDTO getRfbLocationDTO() {
+        return rfbLocationDTO;
     }
 
-    public void setHomeLocationId(Long rfbLocationId) {
-        this.homeLocationId = rfbLocationId;
+    public void setRfbLocationDTO(RfbLocationDTO rfbLocationDTO) {
+        this.rfbLocationDTO = rfbLocationDTO;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     @Override

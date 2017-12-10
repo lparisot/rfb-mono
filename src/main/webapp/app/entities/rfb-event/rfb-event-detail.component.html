@@ -14,8 +14,8 @@
         </dd>
         <dt><span jhiTranslate="rfbApp.rfbEvent.rfbLocation">Rfb Location</span></dt>
         <dd>
-            <div *ngIf="rfbEvent.rfbLocationId">
-                <a [routerLink]="['/rfb-location', rfbEvent.rfbLocationId]">{{rfbEvent.rfbLocationId}}</a>
+            <div *ngIf="rfbEvent.rfbLocationDTO">
+                <a [routerLink]="['/rfb-location', rfbEvent.rfbLocationDTO.id]">{{rfbEvent.rfbLocationDTO.locationName}}</a>
             </div>
         </dd>
     </dl>

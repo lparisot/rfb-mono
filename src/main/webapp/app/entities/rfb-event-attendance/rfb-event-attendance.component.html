@@ -25,22 +25,22 @@
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let rfbEventAttendance of rfbEventAttendances ;trackBy: trackId">
-                <td><a [routerLink]="['../rfb-event-attendance', rfbEventAttendance.id ]">{{rfbEventAttendance.id}}</a></td>
+                <td><a [routerLink]="['../rfb-event-attendance', rfbEventAttendance.id]">{{rfbEventAttendance.id}}</a></td>
                 <td>{{rfbEventAttendance.attendanceDate | date:'mediumDate'}}</td>
                 <td>
-                    <div *ngIf="rfbEventAttendance.rfbEventId">
-                        <a [routerLink]="['../rfb-event', rfbEventAttendance.rfbEventId  ]" >{{rfbEventAttendance.rfbEventId}}</a>
+                    <div *ngIf="rfbEventAttendance.rfbEventDTO">
+                        <a [routerLink]="['../rfb-event', rfbEventAttendance.rfbEventDTO.id]" >{{rfbEventAttendance.rfbEventDTO.rfbLocationDTO.locationName}} : {{ rfbEventAttendance.attendanceDate | date }}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="rfbEventAttendance.rfbUserId">
-                        <a [routerLink]="['../rfb-user', rfbEventAttendance.rfbUserId  ]" >{{rfbEventAttendance.rfbUserId}}</a>
+                    <div *ngIf="rfbEventAttendance.rfbUserDTO">
+                        <a [routerLink]="['../rfb-user', rfbEventAttendance.rfbUserDTO.id]" >{{rfbEventAttendance.rfbUserDTO.userDTO.login}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../rfb-event-attendance', rfbEventAttendance.id ]"
+                                [routerLink]="['../rfb-event-attendance', rfbEventAttendance.id]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>

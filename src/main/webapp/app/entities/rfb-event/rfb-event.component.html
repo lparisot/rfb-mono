@@ -19,7 +19,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="eventDate"><span jhiTranslate="rfbApp.rfbEvent.eventDate">Event Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="eventCode"><span jhiTranslate="rfbApp.rfbEvent.eventCode">Event Code</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="rfbLocationId"><span jhiTranslate="rfbApp.rfbEvent.rfbLocation">Rfb Location</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="rfbLocationDTO.id"><span jhiTranslate="rfbApp.rfbEvent.rfbLocation">Rfb Location</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,8 +29,8 @@
                 <td>{{rfbEvent.eventDate | date:'mediumDate'}}</td>
                 <td>{{rfbEvent.eventCode}}</td>
                 <td>
-                    <div *ngIf="rfbEvent.rfbLocationId">
-                        <a [routerLink]="['../rfb-location', rfbEvent.rfbLocationId  ]" >{{rfbEvent.rfbLocationId}}</a>
+                    <div *ngIf="rfbEvent.rfbLocationDTO">
+                        <a [routerLink]="['../rfb-location', rfbEvent.rfbLocationDTO.id]" >{{rfbEvent.rfbLocationDTO.locationName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

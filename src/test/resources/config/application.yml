@@ -109,3 +109,8 @@ jhipster:
 # ===================================================================
 
 application:
+
+logging:
+    level:
+        com.lpa.rfb.web.rest: debug
+        com.lpa.rfb.app.logging: error

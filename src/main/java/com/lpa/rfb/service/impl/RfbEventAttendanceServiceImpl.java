@@ -42,6 +42,7 @@ public class RfbEventAttendanceServiceImpl implements RfbEventAttendanceService{
         log.debug("Request to save RfbEventAttendance : {}", rfbEventAttendanceDTO);
         RfbEventAttendance rfbEventAttendance = rfbEventAttendanceMapper.toEntity(rfbEventAttendanceDTO);
         rfbEventAttendance = rfbEventAttendanceRepository.save(rfbEventAttendance);
+        log.debug("Request to save RfbEventAttendance : {}", rfbEventAttendance);
         return rfbEventAttendanceMapper.toDto(rfbEventAttendance);
     }
 

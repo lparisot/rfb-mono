@@ -10,14 +10,14 @@
         </dd>
         <dt><span jhiTranslate="rfbApp.rfbEventAttendance.rfbEvent">Rfb Event</span></dt>
         <dd>
-            <div *ngIf="rfbEventAttendance.rfbEventId">
-                <a [routerLink]="['/rfb-event', rfbEventAttendance.rfbEventId]">{{rfbEventAttendance.rfbEventId}}</a>
+            <div *ngIf="rfbEventAttendance.rfbEventDTO.id">
+                <a [routerLink]="['/rfb-event', rfbEventAttendance.rfbEventDTO.id]">{{rfbEventAttendance.rfbEventDTO.rfbLocationDTO.locationName}} : {{ rfbEventAttendance.attendanceDate | date }}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="rfbApp.rfbEventAttendance.rfbUser">Rfb User</span></dt>
         <dd>
-            <div *ngIf="rfbEventAttendance.rfbUserId">
-                <a [routerLink]="['/rfb-user', rfbEventAttendance.rfbUserId]">{{rfbEventAttendance.rfbUserId}}</a>
+            <div *ngIf="rfbEventAttendance.rfbUserDTO.id">
+                <a [routerLink]="['/rfb-user', rfbEventAttendance.rfbUserDTO.id]">{{rfbEventAttendance.rfbUserDTO.userDTO.login}}</a>
             </div>
         </dd>
     </dl>

@@ -41,11 +41,11 @@ export class RfbUserDialogComponent implements OnInit {
         this.rfbLocationService
             .query({filter: 'rfbuser-is-null'})
             .subscribe((res: ResponseWrapper) => {
-                if (!this.rfbUser.homeLocationId) {
+                if (!this.rfbUser.rfbLocationDTO.id) {
                     this.homelocations = res.json;
                 } else {
                     this.rfbLocationService
-                        .find(this.rfbUser.homeLocationId)
+                        .find(this.rfbUser.rfbLocationDTO.id)
                         .subscribe((subRes: RfbLocation) => {
                             this.homelocations = [subRes].concat(res.json);
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
@@ -53,6 +53,7 @@ export class RfbUserDialogComponent implements OnInit {
             }, (res: ResponseWrapper) => this.onError(res.json));
         this.userService.query()
             .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+
     }
 
     clear() {
@@ -65,6 +66,7 @@ export class RfbUserDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.rfbUserService.update(this.rfbUser));
         } else {
+
             this.subscribeToSaveResponse(
                 this.rfbUserService.create(this.rfbUser));
         }

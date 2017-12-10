@@ -2,17 +2,24 @@ package com.lpa.rfb.web.rest;
 
 import com.lpa.rfb.RfbApp;
 
+import com.lpa.rfb.domain.RfbLocation;
 import com.lpa.rfb.domain.RfbUser;
+import com.lpa.rfb.domain.User;
+import com.lpa.rfb.repository.RfbLocationRepository;
 import com.lpa.rfb.repository.RfbUserRepository;
+import com.lpa.rfb.repository.UserRepository;
 import com.lpa.rfb.service.RfbUserService;
 import com.lpa.rfb.service.dto.RfbUserDTO;
 import com.lpa.rfb.service.mapper.RfbUserMapper;
 import com.lpa.rfb.web.rest.errors.ExceptionTranslator;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -43,6 +50,16 @@ public class RfbUserResourceIntTest {
 
     private static final String DEFAULT_USER_NAME = "AAAAAAAAAA";
     private static final String UPDATED_USER_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_LOCATION_NAME = "AAAAAAAAAA";
+    private static final Integer DEFAULT_RUN_DAY_OF_WEEK = 1;
+    private static final String DEFAULT_LOGIN = "johndoe";
+    private static final String DEFAULT_EMAIL = "johndoe@localhost";
+    private static final String DEFAULT_FIRSTNAME = "john";
+    private static final String DEFAULT_LASTNAME = "doe";
+    private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
+    private static final String DEFAULT_LANGKEY = "en";
+
+    private final Logger log = LoggerFactory.getLogger(RfbUserResourceIntTest.class);
 
     @Autowired
     private RfbUserRepository rfbUserRepository;
@@ -52,6 +69,12 @@ public class RfbUserResourceIntTest {
 
     @Autowired
     private RfbUserService rfbUserService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RfbLocationRepository rfbLocationRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -68,10 +91,13 @@ public class RfbUserResourceIntTest {
     private MockMvc restRfbUserMockMvc;
 
     private RfbUser rfbUser;
+    private RfbLocation rfbLocation;
+    private User user;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         MockitoAnnotations.initMocks(this);
+
         final RfbUserResource rfbUserResource = new RfbUserResource(rfbUserService);
         this.restRfbUserMockMvc = MockMvcBuilders.standaloneSetup(rfbUserResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -95,12 +121,35 @@ public class RfbUserResourceIntTest {
     @Before
     public void initTest() {
         rfbUser = createEntity(em);
+
+        rfbLocation = new RfbLocation()
+            .locationName(DEFAULT_LOCATION_NAME)
+            .runDayOfWeek(DEFAULT_RUN_DAY_OF_WEEK);
+        rfbLocationRepository.saveAndFlush(rfbLocation);
+        rfbUser.setHomeLocation(rfbLocation);
+
+        user = new User();
+        user.setLogin(DEFAULT_LOGIN + RandomStringUtils.randomAlphabetic(5));
+        user.setPassword(RandomStringUtils.random(60));
+        user.setActivated(true);
+        user.setEmail(RandomStringUtils.randomAlphabetic(5) + DEFAULT_EMAIL);
+        user.setFirstName(DEFAULT_FIRSTNAME);
+        user.setLastName(DEFAULT_LASTNAME);
+        user.setImageUrl(DEFAULT_IMAGEURL);
+        user.setLangKey(DEFAULT_LANGKEY);
+        userRepository.saveAndFlush(user);
+
+        rfbUser.setUser(user);
     }
 
     @Test
     @Transactional
     public void createRfbUser() throws Exception {
         int databaseSizeBeforeCreate = rfbUserRepository.findAll().size();
+
+        log.debug("location id {}", rfbUser.getHomeLocation().getId());
+        log.debug("User id {}", rfbUser.getUser().getId());
+        log.debug("RfbUser {}", rfbUser);
 
         // Create the RfbUser
         RfbUserDTO rfbUserDTO = rfbUserMapper.toDto(rfbUser);

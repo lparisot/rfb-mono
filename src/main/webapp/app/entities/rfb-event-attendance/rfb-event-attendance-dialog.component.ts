@@ -43,6 +43,10 @@ export class RfbEventAttendanceDialogComponent implements OnInit {
             .subscribe((res: ResponseWrapper) => { this.rfbevents = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.rfbUserService.query()
             .subscribe((res: ResponseWrapper) => { this.rfbusers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        if (typeof this.rfbEventAttendance.rfbEventDTO === 'undefined') {
+            this.rfbEventAttendance.rfbEventDTO = new RfbEvent();
+            this.rfbEventAttendance.rfbUserDTO = new RfbUser();
+        }
     }
 
     clear() {
@@ -51,12 +55,17 @@ export class RfbEventAttendanceDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+
         if (this.rfbEventAttendance.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.rfbEventAttendanceService.update(this.rfbEventAttendance));
         } else {
-            this.subscribeToSaveResponse(
-                this.rfbEventAttendanceService.create(this.rfbEventAttendance));
+            this.rfbUserService.find(this.rfbEventAttendance.rfbUserDTO.id)
+                .subscribe((rfbUser: RfbUser) => {
+                    this.rfbEventAttendance.rfbUserDTO = rfbUser;
+                    this.subscribeToSaveResponse(
+                        this.rfbEventAttendanceService.create(this.rfbEventAttendance));
+                });
         }
     }
 
