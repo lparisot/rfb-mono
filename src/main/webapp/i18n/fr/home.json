@@ -7,7 +7,21 @@
         },
         "events": {
             "title": "Running for Brews 5k Evènements",
-            "header": "Nous adorons 5k Running & Craft Brews"
+            "header": "Nous adorons 5k Running & Craft Brews",
+            "date": "Date de l'évènement",
+            "location": "Lieu de l'évènement",
+            "code": "Code de l'évènement"
+        },
+        "noevent": "Pas d'évènements aujourd'hui!",
+        "checkin": {
+            "title": "Enregistrement pour la course d'aujourd'hui!",
+            "success": "Vous êtes enregistré pour la course d'aujourd'hui. Merci!",
+            "help": "S'il vous plaît, utilisez le formulaire pour vous enregistrer. Si vous ne connaissez pas le code, demandez le à l'organisateur.",
+            "error": "Il n'y a pas de course aujourd'hui pour le lieu sélectionné ou vous avez entré un code incorrect. Réessayez.",
+            "form": {
+                "location": "Lieu",
+                "code": "Code de l'évènement"
+            }
         },
         "question": "Si vous avez des questions à propos de JHipster :",
         "link": {

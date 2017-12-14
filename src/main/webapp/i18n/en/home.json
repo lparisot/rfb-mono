@@ -7,7 +7,21 @@
         },
         "events": {
             "title": "Running for Brews 5k Events",
-            "header": "We Love 5k Running & Craft Brews"
+            "header": "We Love 5k Running & Craft Brews",
+            "date": "Event Date",
+            "location": "Event Location",
+            "code": "Event Code"
+        },
+        "noevent": "No events today!",
+        "checkin": {
+            "title": "Check-in for today's run!",
+            "success": "You are checked in for today's run. Thank you!",
+            "help": "Please use the form to check in to today's event. If you don't know the code please ask your organizer.",
+            "error": "There is either no run today for this location or you have entered an incorrect event code. Please try again.",
+            "form": {
+                "location": "Location",
+                "code": "Event Code"
+            }
         },
         "question": "If you have any question on JHipster:",
         "link": {

@@ -8,7 +8,9 @@ import com.lpa.rfb.domain.User;
 import com.lpa.rfb.repository.UserRepository;
 import com.lpa.rfb.security.SecurityUtils;
 import com.lpa.rfb.service.MailService;
+import com.lpa.rfb.service.RfbUserService;
 import com.lpa.rfb.service.UserService;
+import com.lpa.rfb.service.dto.RfbUserDTO;
 import com.lpa.rfb.service.dto.UserDTO;
 import com.lpa.rfb.web.rest.errors.*;
 import com.lpa.rfb.web.rest.vm.KeyAndPasswordVM;
@@ -39,14 +41,16 @@ public class AccountResource {
 
     private final UserService userService;
 
+    private final RfbUserService rfbUserService;
+
     private final MailService mailService;
 
     private final PersistentTokenRepository persistentTokenRepository;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, PersistentTokenRepository persistentTokenRepository) {
-
+    public AccountResource(UserRepository userRepository, UserService userService, RfbUserService rfbUserService, MailService mailService, PersistentTokenRepository persistentTokenRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
+        this.rfbUserService = rfbUserService;
         this.mailService = mailService;
         this.persistentTokenRepository = persistentTokenRepository;
     }
@@ -112,6 +116,21 @@ public class AccountResource {
         return Optional.ofNullable(userService.getUserWithAuthorities())
             .map(UserDTO::new)
             .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+    }
+
+    /**
+     * GET  /accountr : get the current Rfb user.
+     *
+     * @return the current RfbUser
+     * @throws RuntimeException 500 (Internal Server Error) if the user couldn't be returned
+     */
+    @GetMapping("/accountr")
+    @Timed
+    public RfbUserDTO getAccountr() {
+        UserDTO userDTO = Optional.ofNullable(userService.getUserWithAuthorities())
+            .map(UserDTO::new)
+            .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+        return rfbUserService.findOneByUserId(userDTO.getId());
     }
 
     /**

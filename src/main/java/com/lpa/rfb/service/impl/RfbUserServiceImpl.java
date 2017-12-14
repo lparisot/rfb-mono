@@ -74,6 +74,13 @@ public class RfbUserServiceImpl implements RfbUserService{
         return rfbUserMapper.toDto(rfbUser);
     }
 
+    @Override
+    public RfbUserDTO findOneByUserId(Long userId) {
+        log.debug("Request to get RfbUser via User.id : {}", userId);
+        RfbUser rfbUser = rfbUserRepository.findOneByUserId(userId);
+        return rfbUserMapper.toDto(rfbUser);
+    }
+
     /**
      *  Delete the  rfbUser by id.
      *

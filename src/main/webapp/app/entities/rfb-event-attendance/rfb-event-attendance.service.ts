@@ -16,8 +16,7 @@ export class RfbEventAttendanceService {
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(rfbEventAttendance: RfbEventAttendance): Observable<RfbEventAttendance> {
-        const copy = this.convert(rfbEventAttendance);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
+        return this.http.post(this.resourceUrl, rfbEventAttendance).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
         });

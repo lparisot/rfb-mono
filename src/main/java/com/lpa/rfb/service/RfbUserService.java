@@ -31,6 +31,8 @@ public interface RfbUserService {
      */
     RfbUserDTO findOne(Long id);
 
+    RfbUserDTO findOneByUserId(Long userId);
+
     /**
      *  Delete the "id" rfbUser.
      *

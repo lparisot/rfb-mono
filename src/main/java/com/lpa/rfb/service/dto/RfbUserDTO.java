@@ -1,6 +1,9 @@
 package com.lpa.rfb.service.dto;
 
 
+import com.lpa.rfb.domain.RfbUser;
+import com.lpa.rfb.service.mapper.RfbUserMapper;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
