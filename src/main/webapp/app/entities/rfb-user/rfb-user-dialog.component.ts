@@ -41,15 +41,7 @@ export class RfbUserDialogComponent implements OnInit {
         this.rfbLocationService
             .query({filter: 'rfbuser-is-null'})
             .subscribe((res: ResponseWrapper) => {
-                if (!this.rfbUser.rfbLocationDTO.id) {
-                    this.homelocations = res.json;
-                } else {
-                    this.rfbLocationService
-                        .find(this.rfbUser.rfbLocationDTO.id)
-                        .subscribe((subRes: RfbLocation) => {
-                            this.homelocations = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
+                this.homelocations = res.json;
             }, (res: ResponseWrapper) => this.onError(res.json));
         this.userService.query()
             .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));

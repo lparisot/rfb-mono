@@ -1,5 +1,6 @@
 package com.lpa.rfb.service;
 
+import com.lpa.rfb.domain.RfbLocation;
 import com.lpa.rfb.service.dto.RfbUserDTO;
 import java.util.List;
 
@@ -39,4 +40,6 @@ public interface RfbUserService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+    RfbUserDTO changeLocation(Long userId, RfbLocation rfbLocation);
 }

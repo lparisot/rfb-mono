@@ -26,7 +26,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="home_location_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+                <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">
                 <constraints unique="true" nullable="true" />

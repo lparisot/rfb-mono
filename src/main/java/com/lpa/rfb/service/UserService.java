@@ -244,7 +244,7 @@ public class UserService {
             RfbLocation rfbLocation = rfbLocationRepository.findOne(location);
             RfbUser rfbUser = rfbUserRepository.findOneByUserId(user.getId());
             rfbUser.setHomeLocation(rfbLocation);
-            log.debug("Changed location for User: {}", user);
+            log.debug("Changed location to: {} for RfbUser: {}", rfbLocation, rfbUser);
         });
     }
 

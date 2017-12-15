@@ -28,7 +28,7 @@ public class RfbUser implements Serializable {
     private String userName;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn
     private RfbLocation homeLocation;
 
     @OneToOne

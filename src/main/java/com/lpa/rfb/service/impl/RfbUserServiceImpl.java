@@ -1,9 +1,11 @@
 package com.lpa.rfb.service.impl;
 
+import com.lpa.rfb.domain.RfbLocation;
 import com.lpa.rfb.service.RfbUserService;
 import com.lpa.rfb.domain.RfbUser;
 import com.lpa.rfb.repository.RfbUserRepository;
 import com.lpa.rfb.service.dto.RfbUserDTO;
+import com.lpa.rfb.service.mapper.RfbLocationMapper;
 import com.lpa.rfb.service.mapper.RfbUserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +29,12 @@ public class RfbUserServiceImpl implements RfbUserService{
 
     private final RfbUserMapper rfbUserMapper;
 
-    public RfbUserServiceImpl(RfbUserRepository rfbUserRepository, RfbUserMapper rfbUserMapper) {
+    private final RfbLocationMapper rfbLocationMapper;
+
+    public RfbUserServiceImpl(RfbUserRepository rfbUserRepository, RfbUserMapper rfbUserMapper, RfbLocationMapper rfbLocationMapper) {
         this.rfbUserRepository = rfbUserRepository;
         this.rfbUserMapper = rfbUserMapper;
+        this.rfbLocationMapper = rfbLocationMapper;
     }
 
     /**
@@ -90,5 +95,12 @@ public class RfbUserServiceImpl implements RfbUserService{
     public void delete(Long id) {
         log.debug("Request to delete RfbUser : {}", id);
         rfbUserRepository.delete(id);
+    }
+
+    @Override
+    public RfbUserDTO changeLocation(Long userId, RfbLocation rfbLocation) {
+        RfbUserDTO rfbUserDTO = findOneByUserId(userId);
+        rfbUserDTO.setRfbLocationDTO(rfbLocationMapper.toDto(rfbLocation));
+        return save(rfbUserDTO);
     }
 }

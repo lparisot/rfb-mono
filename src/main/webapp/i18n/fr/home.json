@@ -21,7 +21,8 @@
             "form": {
                 "location": "Lieu",
                 "code": "Code de l'évènement"
-            }
+            },
+            "attention": "ATTENTION: DEFINISSER VOTRE LIEU DE RESIDENCE !"
         },
         "question": "Si vous avez des questions à propos de JHipster :",
         "link": {

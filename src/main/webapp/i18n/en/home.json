@@ -21,7 +21,8 @@
             "form": {
                 "location": "Location",
                 "code": "Event Code"
-            }
+            },
+            "attention": "ATTENTION: SET HOME LOCATION!"
         },
         "question": "If you have any question on JHipster:",
         "link": {

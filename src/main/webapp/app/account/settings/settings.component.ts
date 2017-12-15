@@ -69,14 +69,14 @@ export class SettingsComponent implements OnInit {
                     this.languageService.changeLanguage(this.settingsAccount.langKey);
                 }
             });
-            this.loadLocation();
+            if (this.settingsAccount != null) {
+                this.accountService.changeLocation(this.settingsAccount.homeLocation).subscribe(() => this.loadLocation());
+            }
         }, () => {
             this.success = null;
             this.error = 'ERROR';
         });
-        if (this.settingsAccount != null) {
-            this.accountService.changeLocation(this.settingsAccount.homeLocation).subscribe(() => console.log('location changed'));
-        }
+
     }
 
     copyAccount(account) {

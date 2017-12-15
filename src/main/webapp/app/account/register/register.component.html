@@ -53,7 +53,7 @@
                     <label for="homeLocation" class="form-control-label" jhiTranslate="rfbApp.rfbLocation.home.location">Home Location</label>
                     <select class="form-control" id="homeLocation" name="homeLocation" [(ngModel)]="registerAccount.homeLocation" #homeLocation="ngModel" required>
                         <option [value]="null" [selected]="" jhiTranslate="register.form.selecthome">Select Home Location</option>
-                        <option *ngFor="let location of locations" [value]="location.id">{{location.locationName}}</option>
+                        <option type="number" *ngFor="let location of locations" [value]="location.id">{{location.locationName}}</option>
                     </select>
                 </div>
                 <div class="form-group">

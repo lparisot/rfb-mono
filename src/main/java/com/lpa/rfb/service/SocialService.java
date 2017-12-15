@@ -140,7 +140,7 @@ public class SocialService {
         // create and save RfbUser entity
         RfbUser newRfbUser = new RfbUser();
         newRfbUser.setUser(newUser);
-        newRfbUser.setUserName(userProfile.getFirstName() + " " + userProfile.getLastName());
+        newRfbUser.setUserName(newUser.getLogin());
         rfbUserRepository.save(newRfbUser);
 
         return newUser;
