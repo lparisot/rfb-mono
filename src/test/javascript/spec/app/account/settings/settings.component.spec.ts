@@ -6,6 +6,7 @@ import { Principal, AccountService } from '../../../../../../main/webapp/app/sha
 import { SettingsComponent } from '../../../../../../main/webapp/app/account/settings/settings.component';
 import { MockAccountService } from '../../../helpers/mock-account.service';
 import { MockPrincipal } from '../../../helpers/mock-principal.service';
+import { RfbLocationService } from '../../../../../../main/webapp/app/entities/rfb-location/rfb-location.service';
 
 describe('Component Tests', () => {
 
@@ -33,6 +34,7 @@ describe('Component Tests', () => {
                         provide: JhiLanguageHelper,
                         useValue: null
                     },
+                    RfbLocationService
                 ]
             }).overrideTemplate(SettingsComponent, '')
             .compileComponents();

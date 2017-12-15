@@ -3,8 +3,10 @@ package com.lpa.rfb.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import com.lpa.rfb.domain.PersistentToken;
+import com.lpa.rfb.domain.RfbLocation;
 import com.lpa.rfb.repository.PersistentTokenRepository;
 import com.lpa.rfb.domain.User;
+import com.lpa.rfb.repository.RfbLocationRepository;
 import com.lpa.rfb.repository.UserRepository;
 import com.lpa.rfb.security.SecurityUtils;
 import com.lpa.rfb.service.MailService;
@@ -20,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,13 +48,16 @@ public class AccountResource {
 
     private final MailService mailService;
 
+    private final RfbLocationRepository rfbLocationRepository;
+
     private final PersistentTokenRepository persistentTokenRepository;
 
-    public AccountResource(UserRepository userRepository, UserService userService, RfbUserService rfbUserService, MailService mailService, PersistentTokenRepository persistentTokenRepository) {
+    public AccountResource(UserRepository userRepository, UserService userService, RfbUserService rfbUserService, MailService mailService, RfbLocationRepository rfbLocationRepository, PersistentTokenRepository persistentTokenRepository) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.rfbUserService = rfbUserService;
         this.mailService = mailService;
+        this.rfbLocationRepository = rfbLocationRepository;
         this.persistentTokenRepository = persistentTokenRepository;
     }
 
@@ -170,6 +176,22 @@ public class AccountResource {
         }
         userService.changePassword(password);
    }
+
+    /**
+     * POST  /account/change-location : changes the current user's location
+     *
+     * @param location the new location
+     * @throws RuntimeException 500 (Internal Server Error) if the new location is incorrect
+     */
+    @PostMapping(path = "/account/change-location")
+    @Timed
+    public void changeLocation(@RequestBody Long location) {
+        RfbLocation rfbLocation = rfbLocationRepository.findOne(location);
+        if (rfbLocation == null) {
+            throw new InternalServerErrorException("Location could not be found");
+        }
+        userService.changeLocation(location);
+    }
 
     /**
     * GET  /account/sessions : get the current open sessions.

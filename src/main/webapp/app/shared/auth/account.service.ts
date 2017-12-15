@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER_API_URL } from '../../app.constants';
 
@@ -17,5 +17,12 @@ export class AccountService  {
 
     save(account: any): Observable<Response> {
         return this.http.post(SERVER_API_URL + 'api/account', account);
+    }
+
+    changeLocation(location: number): Observable<Response> {
+        const headers = new Headers ({
+            'Content-Type': 'application/json'
+        });
+        return this.http.post(SERVER_API_URL + 'api/account/change-location', location, { headers });
     }
 }

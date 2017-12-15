@@ -78,6 +78,14 @@
                         <option *ngFor="let language of languages" [value]="language">{{language | findLanguageFromKey}}</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="rfbApp.rfbUser.homeLocation" for="homeLocation">Home Location</label>
+                    <select class="form-control" id="homeLocation" name="homeLocation" [(ngModel)]="settingsAccount.homeLocation" #homeLocation="ngModel" required>
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="location.id" *ngFor="let location of locations; trackBy: trackRfbLocationById">{{location.locationName}}</option>
+                    </select>
+                    <!--<small class="form-text text-danger" *ngIf="homeLocation.errors.required">Your Home Location is required.</small>-->
+                </div>
                 <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary" jhiTranslate="settings.form.button">Save</button>
             </form>
         </div>

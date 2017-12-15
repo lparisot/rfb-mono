@@ -7,9 +7,11 @@ import com.lpa.rfb.domain.PersistentToken;
 import com.lpa.rfb.domain.User;
 import com.lpa.rfb.repository.AuthorityRepository;
 import com.lpa.rfb.repository.PersistentTokenRepository;
+import com.lpa.rfb.repository.RfbLocationRepository;
 import com.lpa.rfb.repository.UserRepository;
 import com.lpa.rfb.security.AuthoritiesConstants;
 import com.lpa.rfb.service.MailService;
+import com.lpa.rfb.service.RfbUserService;
 import com.lpa.rfb.service.dto.UserDTO;
 import com.lpa.rfb.web.rest.errors.ExceptionTranslator;
 import com.lpa.rfb.web.rest.vm.KeyAndPasswordVM;
@@ -58,10 +60,16 @@ public class AccountResourceIntTest {
     private UserRepository userRepository;
 
     @Autowired
+    private RfbLocationRepository rfbLocationRepository;
+
+    @Autowired
     private AuthorityRepository authorityRepository;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RfbUserService rfbUserService;
 
     @Autowired
     private PersistentTokenRepository persistentTokenRepository;
@@ -79,6 +87,9 @@ public class AccountResourceIntTest {
     private UserService mockUserService;
 
     @Mock
+    private RfbUserService mockRfbUserService;
+
+    @Mock
     private MailService mockMailService;
 
     private MockMvc restMvc;
@@ -89,11 +100,13 @@ public class AccountResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(anyObject());
+
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService, persistentTokenRepository);
+            new AccountResource(userRepository, userService, rfbUserService, mockMailService, rfbLocationRepository, persistentTokenRepository);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService, persistentTokenRepository);
+            new AccountResource(userRepository, mockUserService, mockRfbUserService, mockMailService, rfbLocationRepository, persistentTokenRepository);
+
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)

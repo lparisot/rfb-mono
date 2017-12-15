@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
-import { Principal, AccountService, JhiLanguageHelper } from '../../shared';
+import { Principal, AccountService, JhiLanguageHelper, ResponseWrapper } from '../../shared';
+import { RfbLocation } from '../../entities/rfb-location/rfb-location.model';
+import { RfbLocationService } from '../../entities/rfb-location/rfb-location.service';
+import { RfbUser } from '../../entities/rfb-user/rfb-user.model';
 
 @Component({
     selector: 'jhi-settings',
@@ -12,26 +15,50 @@ export class SettingsComponent implements OnInit {
     success: string;
     settingsAccount: any;
     languages: any[];
+    locations: RfbLocation[];
 
     constructor(
-        private account: AccountService,
+        private accountService: AccountService,
         private principal: Principal,
         private languageService: JhiLanguageService,
-        private languageHelper: JhiLanguageHelper
+        private languageHelper: JhiLanguageHelper,
+        private locationService: RfbLocationService
     ) {
     }
 
     ngOnInit() {
+        this.loadLocations();
         this.principal.identity().then((account) => {
             this.settingsAccount = this.copyAccount(account);
+            this.loadLocation();
         });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
     }
 
+    loadLocation() {
+        this.accountService.getrfb().subscribe( (user: RfbUser) => {
+            if (user != null) {
+                this.settingsAccount.homeLocation = user.rfbLocationDTO.id;
+            }
+        });
+    }
+
+    loadLocations() {
+        this.locationService.query({
+            page: 0,
+            size: 100,
+            sort: ['locationName', 'ASC']}).subscribe(
+            (res: ResponseWrapper) => {
+                this.locations = res.json;
+            },
+            (res: ResponseWrapper) => { console.log(res) }
+        );
+    }
+
     save() {
-        this.account.save(this.settingsAccount).subscribe(() => {
+        this.accountService.save(this.settingsAccount).subscribe(() => {
             this.error = null;
             this.success = 'OK';
             this.principal.identity(true).then((account) => {
@@ -42,10 +69,14 @@ export class SettingsComponent implements OnInit {
                     this.languageService.changeLanguage(this.settingsAccount.langKey);
                 }
             });
+            this.loadLocation();
         }, () => {
             this.success = null;
             this.error = 'ERROR';
         });
+        if (this.settingsAccount != null) {
+            this.accountService.changeLocation(this.settingsAccount.homeLocation).subscribe(() => console.log('location changed'));
+        }
     }
 
     copyAccount(account) {
@@ -56,7 +87,12 @@ export class SettingsComponent implements OnInit {
             langKey: account.langKey,
             lastName: account.lastName,
             login: account.login,
-            imageUrl: account.imageUrl
+            imageUrl: account.imageUrl,
+            homeLocation: account.homeLocation
         };
+    }
+
+    trackRfbLocationById(index: number, item: RfbLocation) {
+        return item.id;
     }
 }

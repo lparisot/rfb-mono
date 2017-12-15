@@ -239,6 +239,16 @@ public class UserService {
         });
     }
 
+    public void changeLocation(Long location) {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
+            RfbLocation rfbLocation = rfbLocationRepository.findOne(location);
+            RfbUser rfbUser = rfbUserRepository.findOneByUserId(user.getId());
+            rfbUser.setHomeLocation(rfbLocation);
+            log.debug("Changed location for User: {}", user);
+        });
+    }
+
+
     @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);

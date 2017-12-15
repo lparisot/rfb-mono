@@ -6,6 +6,8 @@ export class MockAccountService extends SpyObject {
 
     getSpy: Spy;
     saveSpy: Spy;
+    getrfbSpy: Spy;
+    changeLocationSpy: Spy;
     fakeResponse: any;
 
     constructor() {
@@ -14,6 +16,8 @@ export class MockAccountService extends SpyObject {
         this.fakeResponse = null;
         this.getSpy = this.spy('get').andReturn(this);
         this.saveSpy = this.spy('save').andReturn(this);
+        this.getrfbSpy = this.spy('getrfb').andReturn(this);
+        this.changeLocationSpy = this.spy('changeLocation').andReturn(this);
     }
 
     subscribe(callback: any) {
