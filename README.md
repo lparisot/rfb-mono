@@ -6,6 +6,7 @@ This application was generated using JHipster 4.10.2, you can find documentation
 
 ## Functional requirements
 
+
 * Users can login by email / password or FaceBook
 * Facebook login should capture email
 * Need lost password email
