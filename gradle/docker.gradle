@@ -62,5 +62,6 @@ task pushDockerLatest(type: DockerPushImage, dependsOn: 'buildDocker') {
  */
 task pushDockerVersionTag(type: DockerPushImage, dependsOn: 'buildDocker') {
     imageName = rfbImageName
+    println "${project.version}"
     tag =  "${project.version}".toString()
 }
