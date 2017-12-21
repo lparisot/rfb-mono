@@ -90,8 +90,6 @@ public class RfbBootstrap implements CommandLineRunner {
         rfbAttendance.setRfbUser(rfbUser);
         rfbAttendance.setAttendanceDate(LocalDate.now());
 
-        System.out.println(rfbAttendance.toString());
-
         rfbEventAttendanceRepository.save(rfbAttendance);
         rfbEventRepository.save(rfbEvent);
     }
@@ -101,6 +99,7 @@ public class RfbBootstrap implements CommandLineRunner {
         rfbEvent.setEventCode(UUID.randomUUID().toString());
         rfbEvent.setEventDate(LocalDate.now()); // will not be on assigned day...
         rfbLocation.addRfbEvent(rfbEvent);
+
         rfbLocationRepository.save(rfbLocation);
         rfbEventRepository.save(rfbEvent);
 
@@ -111,6 +110,7 @@ public class RfbBootstrap implements CommandLineRunner {
         RfbLocation rfbLocation = new RfbLocation();
         rfbLocation.setLocationName(locationName);
         rfbLocation.setRunDayOfWeek(value);
+
         rfbLocationRepository.save(rfbLocation);
 
         return rfbLocation;

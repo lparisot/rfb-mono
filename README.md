@@ -143,6 +143,13 @@ Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
 Refer to [Using JHipster in production][] for more details.
 
+## Deliver a release
+
+To add a new tag, run:
+
+    gradle release
+
+
 ## Testing
 
 To launch your application's tests, run:
@@ -210,3 +217,4 @@ If you want to push the docker image of your project, you must declare three env
 [Protractor]: https://angular.github.io/protractor/
 [Leaflet]: http://leafletjs.com/
 [DefinitelyTyped]: http://definitelytyped.org/
+[Gradle Release Plugin]: https://github.com/researchgate/gradle-release
