@@ -36,7 +36,6 @@ apply plugin: 'idea'
 defaultTasks 'bootRun'
 
 group = 'com.lpa.rfb'
-version = '0.0.1-SNAPSHOT'
 
 description = ''
 
