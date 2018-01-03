@@ -1,2 +1,10 @@
 ---
 # defaults file for apache
+apache_listen_port: 80
+apache_listen_port_ssl: 443
+
+apache_vhosts_filename: "vhosts.conf"
+
+apache_vhosts:
+  - servername: "local.dev"
+    proxyport: 8080

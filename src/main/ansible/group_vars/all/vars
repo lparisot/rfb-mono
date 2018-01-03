@@ -1,1 +1,4 @@
 ---
+apache_vhosts:
+  - servername: "rfb.domain.fr"
+    proxyport: 8080

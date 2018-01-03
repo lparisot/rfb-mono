@@ -1,0 +1,15 @@
+{% for vhost in apache_vhosts %}
+<VirtualHost *:{{ apache_listen_port }}>
+  ServerName {{ vhost.servername }}
+  ProxyRequests Off
+  ProxyPreserveHost On
+  AllowEncodedSlashes NoDecode
+  ProxyPass / http://localhost:{{ vhost.proxyport }}/ nocanon
+  ProxyPassReverse / http://localhost:{{ vhost.proxyport }}/
+  ProxyPassReverse / http://{{ vhost.servername }}
+  <Proxy http://localhost:{{ vhost.proxyport }}/* >
+    Order deny,allow
+    Allow from all
+  </Proxy>
+</VirtualHost>
+{% endfor %}

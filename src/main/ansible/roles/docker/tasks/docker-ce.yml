@@ -24,6 +24,7 @@
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docker-ce.repo
+  changed_when: false
   tags: [ 'packages' ]
 
 - name: install docker-ce
@@ -37,6 +38,7 @@
   file:
     name: /etc/yum.repos.d/docker-ce.repo
     state: absent
+  changed_when: false
   tags: [ 'packages' ]
 
 - name: ensure docker-ce is started

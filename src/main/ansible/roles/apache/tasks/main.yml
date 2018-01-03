@@ -1,2 +1,46 @@
 ---
 # tasks file for apache
+- name: install tools
+  yum: name={{ item }} state=present
+  with_items:
+    - libselinux-python
+    - libsemanage-python
+  tags: [ 'packages' ]
+
+- name: install web components
+  yum: name={{ item }} state=present
+  with_items: "{{ apache_packages }}"
+  tags: [ 'packages' ]
+
+- name: remove standard welcome page
+  file: path=/etc/httpd/conf.d/welcome.conf state=absent
+  tags: [ 'configure' ]
+
+- name: configure apache
+  lineinfile:
+    dest: "{{ apache_server_root }}/conf/{{ apache_daemon }}.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items: "{{ apache_ports_configuration }}"
+  notify: restart apache
+
+- name: add apache vhosts configuration
+  template:
+    src: vhosts.conf.j2
+    dest: "{{ apache_conf_path }}/{{ apache_vhosts_filename }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart apache
+
+- name: ensure apache is started
+  service: name=httpd state=started enabled=yes
+  tags: [ 'service' ]
+
+- name: open httpd in SELinux
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+  tags: [ 'system' ]
