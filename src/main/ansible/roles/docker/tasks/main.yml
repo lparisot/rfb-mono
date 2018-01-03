@@ -1,0 +1,3 @@
+---
+- import_tasks: docker-ce.yml
+- import_tasks: docker-compose.yml

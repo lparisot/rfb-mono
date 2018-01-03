@@ -1,0 +1,44 @@
+---
+- name: uninstall old versions
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-common
+    - docker-selinux
+    - docker-engine
+    - docker-compose
+  when: false
+  tags: [ 'packages' ]
+
+- name: install docker-ce requirements
+  yum: name={{ item }} state=present
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+  tags: [ 'packages' ]
+
+- name: add docker-ce repository
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+  tags: [ 'packages' ]
+
+- name: install docker-ce
+  yum:
+    name: docker-ce
+    #enablerepo: rhui-REGION-rhel-server-extras
+    state: present
+  tags: [ 'packages' ]
+
+- name: remove docker-ce repository
+  file:
+    name: /etc/yum.repos.d/docker-ce.repo
+    state: absent
+  tags: [ 'packages' ]
+
+- name: ensure docker-ce is started
+  service: name=docker state=started enabled=yes
+  tags: [ 'service' ]

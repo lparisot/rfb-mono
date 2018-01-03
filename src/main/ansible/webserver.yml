@@ -1,0 +1,9 @@
+---
+- hosts: webserver
+  # get privilege
+  become: true
+  gather_facts: false
+  roles:
+    - docker
+    - apache
+    - rfb_app

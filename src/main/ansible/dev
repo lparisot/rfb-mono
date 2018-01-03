@@ -1,0 +1,5 @@
+[webserver]
+rfb-app01
+
+[control]
+master ansible_connection=local

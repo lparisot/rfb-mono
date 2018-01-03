@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: update yum cache
+      yum: name=* state=latest update_cache=yes
+      tags: [ 'packages' ]
+
+- import_playbook: master.yml
+#- import_playbook: database.yml
+- import_playbook: webserver.yml
