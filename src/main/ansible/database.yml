@@ -1,0 +1,13 @@
+---
+- hosts: database
+  # get privilege
+  become: true
+  roles:
+    - role: geerlingguy.mysql
+      mysql_databases:
+        - name: "{{ db_name }}"
+      mysql_users:
+        - name: "{{ db_user_name }}"
+          host: '%'
+          password: "{{ db_user_password }}"
+          priv: "{{ db_name }}.*:ALL"
