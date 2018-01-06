@@ -1,5 +1,8 @@
 [webserver]
 rfb-app01
 
+[database]
+rfb-db01
+
 [control]
-master ansible_connection=local
+master ansible_connection=local ansible_python_interpreter=python

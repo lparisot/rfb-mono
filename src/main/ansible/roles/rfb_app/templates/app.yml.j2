@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  rfb-app:
+    image: {{ image_name }}
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - SPRING_DATASOURCE_URL={{ datasource_url }}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+      - SPRING_DATASOURCE_USERNAME={{ db_user_name }}
+      - SPRING_DATASOURCE_PASSWORD={{ db_user_password }}
+      - SPRING_SOCIAL_GOOGLE_CLIENT_ID={{ social_google_client_id }}
+      - SPRING_SOCIAL_GOOGLE_CLIENT_SECRET={{ social_google_client_secret }}
+      - SPRING_SOCIAL_TWITTER_CLIENT_ID={{ vault_social_twitter_client_id }}
+      - SPRING_SOCIAL_TWITTER_CLIENT_SECRET={{ vault_social_twitter_client_secret }}
+    ports:
+      - 8080:8080

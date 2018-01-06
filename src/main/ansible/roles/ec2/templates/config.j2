@@ -1,0 +1,9 @@
+{% for instance in ec2_webservers_running %}
+Host {{ instance.tags.name }}
+  HostName {{ instance.public_dns_name }}
+  Port 22
+  User centos
+  IdentityFile ./env/{{ project_name }}-{{ env }}-private.pem
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+{% endfor %}

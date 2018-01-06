@@ -1,2 +1,11 @@
 ---
 # tasks file for rfb_app
+
+# - name: add application definition file
+#   template:
+#     src: app.yml.j2
+#     dest: /root/app.yml
+#     owner: root
+#     group: root
+#     mode: 0644
+#   tags: [ 'configure' ]

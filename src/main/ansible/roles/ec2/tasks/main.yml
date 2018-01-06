@@ -1,0 +1,4 @@
+---
+- include_tasks: security_group.yml group=webserver
+- include_tasks: instance.yml group=webserver
+- include_tasks: security_group.yml group=database

@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: [webserver, database]
   become: true
   gather_facts: false
   tasks:
@@ -8,5 +8,5 @@
       tags: [ 'packages' ]
 
 - import_playbook: master.yml
-#- import_playbook: database.yml
+- import_playbook: database.yml
 - import_playbook: webserver.yml

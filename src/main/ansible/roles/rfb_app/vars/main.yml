@@ -1,2 +1,3 @@
 ---
 # vars file for rfb_app
+datasource_url: jdbc:mysql://

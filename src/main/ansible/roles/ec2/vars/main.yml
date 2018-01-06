@@ -1,0 +1,49 @@
+---
+# vars file for ec2
+env: "staging"
+app_remote_user: "centos"
+
+ec2_access_key: "{{ vault_aws_access_key_id }}"
+ec2_secret_key: "{{ vault_aws_secret_access_key }}"
+
+ec2_my_key: "{{ project_name }}-{{ env }}-key"
+
+ec2_vpc_default: "vpc-e36e978a"
+ec2_region: "eu-west-3"
+ec2_subnet: "subnet-02c1046b"
+
+ec2_instance_type: "t2.micro"
+ec2_image: "ami-0c60d771"
+ec2_volume_size: 8
+
+ec2_webserver_groups:
+  - name: webgroup
+    description: "Webserver security group"
+    vpc_id: "{{ ec2_vpc_default }}"
+    region: "{{ ec2_region }}"
+ec2_database_groups:
+  - name: mysqlgroup
+    description: "Mysql security group"
+    vpc_id: "{{ ec2_vpc_default }}"
+    region: "{{ ec2_region }}"
+
+webserver_security_rules:
+  - proto: tcp
+    from_port: 80
+    to_port: 80
+    cidr_ip: 0.0.0.0/0
+  - proto: tcp
+    from_port: 22
+    to_port: 22
+    cidr_ip: 0.0.0.0/0
+  - proto: tcp
+    from_port: 443
+    to_port: 443
+    cidr_ip: 0.0.0.0/0
+
+open_3306_for_me: true
+database_security_rules:
+  - proto: tcp
+    from_port: 22
+    to_port: 22
+    cidr_ip: 0.0.0.0/0
