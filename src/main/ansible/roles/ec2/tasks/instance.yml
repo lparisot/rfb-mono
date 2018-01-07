@@ -53,8 +53,6 @@
   set_fact:
     ec2_instances_running: "{{ ec2_instances_running | combine({group: ec2_group_instances.instances | selectattr('state.name', 'equalto', 'running') | list}) }}"
 
-- debug: msg="ec2 instances running {{ ec2_instances_running }}"
-
 - name: save config to inventory file
   template:
     src: config.j2

@@ -25,30 +25,6 @@
     ec2_security_groups: "{{ ec2_security_groups | combine({group: ec2_security_groups_temp.results[0]}) }}"
   when: group == "webserver"
 
-- name: get facts for webserver instances
-  ec2_instance_facts:
-    aws_access_key: "{{ ec2_access_key }}"
-    aws_secret_key: "{{ ec2_secret_key }}"
-    region: "{{ ec2_region }}"
-    filters:
-      "tag:type": webserver
-  register: ec2_webserver_instances
-
-- name: store webserver running results
-  set_fact:
-    ec2_webservers_running: "{{ ec2_webserver_instances.instances | selectattr('state.name', 'equalto', 'running') | list }}"
-
-# - name: get facts for database group
-#   ec2_group_facts:
-#     aws_access_key: "{{ ec2_access_key }}"
-#     aws_secret_key: "{{ ec2_secret_key }}"
-#     region: "{{ item.region }}"
-#     filters:
-#       group-name: "{{ item.name }}"
-#   with_items: "{{ ec2_database_groups }}"
-#   register: database_security_group
-#   when: group == "database"
-
 - name:
   set_fact:
     database_security_open_for_me:
@@ -66,7 +42,7 @@
 - name: update database security rules to open 3306 to all webservers
   set_fact:
     database_security_rules: "{{ database_security_rules | default([]) }} + [{ 'proto': 'tcp', 'from_port': 3306, 'to_port': 3306, 'cidr_ip': '{{ item.private_ip_address }}/32' }]"
-  with_items: "{{ ec2_webservers_running }}"
+  with_items: "{{ ec2_instances_running['webserver'] }}"
   when: group == "database"
 
 - name: create security groups for a database
