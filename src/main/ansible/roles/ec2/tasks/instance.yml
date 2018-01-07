@@ -13,12 +13,12 @@
   copy: content="{{ ec2_key.key.private_key }}" dest="env/{{ project_name }}-{{ env }}-private.pem" mode=0666
   when: ec2_key.changed
 
-- name: create a webserver EC2 instance
+- name: create EC2 instance
   ec2:
     aws_access_key: "{{ ec2_access_key }}"
     aws_secret_key: "{{ ec2_secret_key }}"
     key_name: "{{ ec2_my_key }}"
-    group_id: "{{ webserver_security_group.results[0].group_id }}"
+    group_id: "{{ ec2_security_groups[group].group_id }}"
     # Region eu-west-3 does not seem to be available for aws module boto.ec2.
     #region: "{{ ec2_region }}"
     ec2_url: "https://ec2.{{ ec2_region }}.amazonaws.com"
@@ -39,22 +39,21 @@
       name: "{{ item }}"
     exact_count: 1
   with_items: "{{ groups[group] }}"
-  register: ec2
 
-- name: get facts for webserver instances
+- name: get facts for new instances
   ec2_instance_facts:
     aws_access_key: "{{ ec2_access_key }}"
     aws_secret_key: "{{ ec2_secret_key }}"
     region: "{{ ec2_region }}"
     filters:
-      "tag:type": webserver
-  register: ec2_webserver_instances
+      "tag:type": "{{ group }}"
+  register: ec2_group_instances
 
-- name: store webserver running results
+- name: store new running instances results
   set_fact:
-    ec2_webservers_running: "{{ ec2_webserver_instances.instances | selectattr('state.name', 'equalto', 'running') | list }}"
+    ec2_instances_running: "{{ ec2_instances_running | combine({group: ec2_group_instances.instances | selectattr('state.name', 'equalto', 'running') | list}) }}"
 
-- debug: msg="ec2 webservers running {{ ec2_webservers_running }}"
+- debug: msg="ec2 instances running {{ ec2_instances_running }}"
 
 - name: save config to inventory file
   template:
@@ -67,8 +66,7 @@
     host: "{{ item.public_ip_address }}"
     port: 22
     state: started
-  with_items: "{{ ec2_webservers_running }}"
-  when: group == "webserver"
+  with_items: "{{ ec2_instances_running[group] }}"
 
 # - name: add IP to ec2_hosts group
 #   add_host:

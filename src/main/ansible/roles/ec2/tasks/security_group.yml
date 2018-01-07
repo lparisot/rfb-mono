@@ -17,7 +17,12 @@
     purge_rules: true
     rules: "{{ webserver_security_rules }}"
   with_items: "{{ ec2_webserver_groups }}"
-  register: webserver_security_group
+  register: ec2_security_groups_temp #webserver_security_group
+  when: group == "webserver"
+
+- name: store webserver result in ec2_security_groups
+  set_fact:
+    ec2_security_groups: "{{ ec2_security_groups | combine({group: ec2_security_groups_temp.results[0]}) }}"
   when: group == "webserver"
 
 - name: get facts for webserver instances
@@ -33,16 +38,16 @@
   set_fact:
     ec2_webservers_running: "{{ ec2_webserver_instances.instances | selectattr('state.name', 'equalto', 'running') | list }}"
 
-- name: get facts for database group
-  ec2_group_facts:
-    aws_access_key: "{{ ec2_access_key }}"
-    aws_secret_key: "{{ ec2_secret_key }}"
-    region: "{{ item.region }}"
-    filters:
-      group-name: "{{ item.name }}"
-  with_items: "{{ ec2_database_groups }}"
-  register: database_security_group
-  when: group == "database"
+# - name: get facts for database group
+#   ec2_group_facts:
+#     aws_access_key: "{{ ec2_access_key }}"
+#     aws_secret_key: "{{ ec2_secret_key }}"
+#     region: "{{ item.region }}"
+#     filters:
+#       group-name: "{{ item.name }}"
+#   with_items: "{{ ec2_database_groups }}"
+#   register: database_security_group
+#   when: group == "database"
 
 - name:
   set_fact:
@@ -75,5 +80,10 @@
     purge_rules: true
     rules: "{{ database_security_rules }}"
   with_items: "{{ ec2_database_groups }}"
-  register: database_security_group
+  register: ec2_security_groups_temp #database_security_group
+  when: group == "database"
+
+- name: store database result in ec2_security_groups
+  set_fact:
+    ec2_security_groups: "{{ ec2_security_groups | combine({group: ec2_security_groups_temp.results[0]}) }}"
   when: group == "database"

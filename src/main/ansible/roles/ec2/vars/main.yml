@@ -16,13 +16,15 @@ ec2_instance_type: "t2.micro"
 ec2_image: "ami-0c60d771"
 ec2_volume_size: 8
 
+ec2_instances_running: {}
+ec2_security_groups: {}
 ec2_webserver_groups:
-  - name: webgroup
+  - name: webserver
     description: "Webserver security group"
     vpc_id: "{{ ec2_vpc_default }}"
     region: "{{ ec2_region }}"
 ec2_database_groups:
-  - name: mysqlgroup
+  - name: database
     description: "Mysql security group"
     vpc_id: "{{ ec2_vpc_default }}"
     region: "{{ ec2_region }}"
