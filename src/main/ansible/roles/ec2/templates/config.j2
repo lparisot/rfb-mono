@@ -1,11 +1,9 @@
-{% for name in ec2_instances_running.keys() %}
-{% for instance in ec2_instances_running[name] %}
+{% for instance in ec2_instances_running[group] %}
 Host {{ instance.tags.name }}
   HostName {{ instance.public_dns_name }}
   Port 22
   User centos
-  IdentityFile ./env/{{ project_name }}-{{ env }}-private.pem
+  IdentityFile ~/.ssh/{{ project_name }}-{{ env }}-private.pem
   StrictHostKeyChecking no
   UserKnownHostsFile=/dev/null
-{% endfor %}
 {% endfor %}

@@ -10,7 +10,9 @@
   register: ec2_key
 
 - name: save private key
-  copy: content="{{ ec2_key.key.private_key }}" dest="env/{{ project_name }}-{{ env }}-private.pem" mode=0666
+  become: yes
+  become_user: "{{ local_user }}"
+  copy: content="{{ ec2_key.key.private_key }}" dest="{{ ssh_dir }}/{{ project_name }}-{{ env }}-private.pem" mode=0600
   when: ec2_key.changed
 
 - name: create EC2 instance
@@ -56,10 +58,32 @@
 - name: save config to inventory file
   template:
     src: config.j2
-    dest: ./env/config
-    mode: 0666
+    dest: env/config
+    mode: 0600
 
-- name: wait for ssh to come up for webserver group
+- name: read current config file
+  shell: cat "{{ ssh_config_dir_target }}"
+  register: current_config_content
+
+- name: read new config file
+  set_fact:
+    new_content: "{{ lookup('file', './env/config') }}"
+
+- name: concatenate in current config file
+  lineinfile: dest="{{ ssh_config_dir_target }}" line="\n{{ new_content }}"
+  when: current_config_content.stdout.find(item) == -1
+  with_items: "{{ groups[group] }}"
+
+- name: save config to inventory file
+  become: yes
+  become_user: "{{ local_user }}"
+  replace:
+    path: "{{ ssh_config_dir_target }}"
+    regexp: "^Host {{item}}[^<]*?null$"
+    replace: "{{ new_content }}"
+  with_items: "{{ groups[group] }}"
+
+- name: wait for ssh to come up
   wait_for:
     host: "{{ item.public_ip_address }}"
     port: 22
@@ -71,7 +95,7 @@
 #     hostname: "{{ item.public_dns_name }}"
 #     groups: ec2_hosts
 #     private_ip: "{{ item.private_ip }}"
-#   with_items: ec2.results[0].instances
+#   with_items: "{{ ec2_instances_running[group] }}"
 
 # - name: make sure user is on server and generate ssh key for it
 #   user:

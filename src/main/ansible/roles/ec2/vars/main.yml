@@ -3,6 +3,13 @@
 env: "staging"
 app_remote_user: "centos"
 
+local_user: "{{ lookup('env', 'USER')}}"
+local_home: "{{ lookup('env', 'HOME')}}"
+
+ssh_dir: "{{ local_home }}/.ssh"
+ssh_config_filename: config
+ssh_config_dir_target: "{{ ssh_dir }}/{{ ssh_config_filename }}"
+
 ec2_access_key: "{{ vault_aws_access_key_id }}"
 ec2_secret_key: "{{ vault_aws_secret_access_key }}"
 
