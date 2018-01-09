@@ -55,8 +55,8 @@
 
 - name: launch rfb application
   docker_container:
-    name: "{{ application }}"
-    image: "{{ image_name }}"
+    name: "{{ project_name }}"
+    image: "{{ app_image_name }}"
     env:
       SPRING_PROFILES_ACTIVE: prod,swagger
       SPRING_DATASOURCE_URL: "{{ datasource_url }}"

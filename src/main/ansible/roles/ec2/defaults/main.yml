@@ -7,6 +7,7 @@ ec2_vpc_default: "vpc-e36e978a"
 ec2_subnet: "subnet-02c1046b"
 
 ec2_instance_type: "t2.micro"
+# CentOS 7
 ec2_image: "ami-0c60d771"
 ec2_volume_size: 8
 

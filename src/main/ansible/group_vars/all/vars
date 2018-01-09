@@ -5,10 +5,21 @@ apache_vhosts:
   - servername: "rfb.domain.fr"
     proxyport: 8080
 
+docker_application:
+  id: lparisot
+  image_name: rfbmono
+  image_version: 0.0.3
+
 db_name: rfbdb
 db_port: 3306
 db_user_name: rfb
 db_user_password: "{{ vault_db_user_password }}"
+
+ec2_region: "eu-west-3"
+ec2_vpc_default: "vpc-e36e978a"
+ec2_subnet: "subnet-02c1046b"
+ec2_access_key: "{{ vault_aws_access_key_id }}"
+ec2_secret_key: "{{ vault_aws_secret_access_key }}"
 
 social_google_client_id: "{{ vault_social_google_client_id }}"
 social_google_client_secret: "{{ vault_social_google_client_secret }}"
@@ -19,7 +30,3 @@ social_facebook_client_secret: "{{ vault_social_facebook_client_secret }}"
 
 local_user: "{{ lookup('env', 'USER')}}"
 local_home: "{{ lookup('env', 'HOME')}}"
-
-ec2_access_key: "{{ vault_aws_access_key_id }}"
-ec2_secret_key: "{{ vault_aws_secret_access_key }}"
-ec2_region: "eu-west-3"

@@ -2,7 +2,8 @@
 # defaults file for rfb_app
 group: database
 
-id: lparisot
-application: rfbmono
-version: 0.0.3
-image_name: "{{ id }}/{{ application }}:{{ version }}"
+docker_application:
+  id: lparisot
+  image_name: rfbmono
+  image_version: 0.0.3
+app_image_name: "{{ docker_application.id }}/{{ docker_application.image_name }}:{{ docker_application.image_version }}"

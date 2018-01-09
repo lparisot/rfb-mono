@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   rfb-app:
-    image: {{ image_name }}
+    image: {{ app_image_name }}
     environment:
       - SPRING_PROFILES_ACTIVE=prod,swagger
       - SPRING_DATASOURCE_URL={{ datasource_url }}
