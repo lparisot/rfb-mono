@@ -1,2 +1,32 @@
 ---
 # defaults file for ec2
+env: "staging"
+app_remote_user: "centos"
+
+ec2_vpc_default: "vpc-e36e978a"
+ec2_subnet: "subnet-02c1046b"
+
+ec2_instance_type: "t2.micro"
+ec2_image: "ami-0c60d771"
+ec2_volume_size: 8
+
+webserver_security_rules:
+  - proto: tcp
+    from_port: 80
+    to_port: 80
+    cidr_ip: 0.0.0.0/0
+  - proto: tcp
+    from_port: 22
+    to_port: 22
+    cidr_ip: 0.0.0.0/0
+  - proto: tcp
+    from_port: 443
+    to_port: 443
+    cidr_ip: 0.0.0.0/0
+
+open_3306_for_me: true
+database_security_rules:
+  - proto: tcp
+    from_port: 22
+    to_port: 22
+    cidr_ip: 0.0.0.0/0
