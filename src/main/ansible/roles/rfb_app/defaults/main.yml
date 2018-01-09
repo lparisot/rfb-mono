@@ -1,2 +1,8 @@
 ---
 # defaults file for rfb_app
+group: database
+
+id: lparisot
+application: rfbmono
+version: 0.0.3
+image_name: "{{ id }}/{{ application }}:{{ version }}"

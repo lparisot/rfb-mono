@@ -5,7 +5,8 @@ apache_vhosts:
   - servername: "rfb.domain.fr"
     proxyport: 8080
 
-db_name: rfdb
+db_name: rfbdb
+db_port: 3306
 db_user_name: rfb
 db_user_password: "{{ vault_db_user_password }}"
 
@@ -15,3 +16,10 @@ social_twitter_client_id: "{{ vault_social_twitter_client_id }}"
 social_twitter_client_secret: "{{ vault_social_twitter_client_secret }}"
 social_facebook_client_id: "{{ vault_social_facebook_client_id }}"
 social_facebook_client_secret: "{{ vault_social_facebook_client_secret }}"
+
+local_user: "{{ lookup('env', 'USER')}}"
+local_home: "{{ lookup('env', 'HOME')}}"
+
+ec2_access_key: "{{ vault_aws_access_key_id }}"
+ec2_secret_key: "{{ vault_aws_secret_access_key }}"
+ec2_region: "eu-west-3"

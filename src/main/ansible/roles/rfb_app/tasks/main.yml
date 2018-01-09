@@ -1,11 +1,72 @@
 ---
 # tasks file for rfb_app
+- name: install requirements
+  yum: name={{ item }} state=present
+  with_items:
+    - python-pip
+    - MySQL-python
+  tags: [ 'packages' ]
 
-# - name: add application definition file
-#   template:
-#     src: app.yml.j2
-#     dest: /root/app.yml
-#     owner: root
-#     group: root
-#     mode: 0644
-#   tags: [ 'configure' ]
+- name: install boto
+  pip:
+    name: boto3
+    state: present
+  tags: [ 'packages' ]
+
+- name: get facts about instances
+  ec2_instance_facts:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_key }}"
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:type": "{{group}}"
+  register: ec2_group_instances
+  tags: [ 'service' ]
+
+- name: store new running instances results
+  set_fact:
+    ec2_instances_running: "{{ ec2_instances_running | combine({group: ec2_group_instances.instances | selectattr('state.name', 'equalto', 'running') | list}) }}"
+  tags: [ 'service' ]
+
+- name: construct datasource URL
+  set_fact:
+    datasource_url: "jdbc:mysql://{{ ec2_instances_running[group][0].public_dns_name }}:{{ db_port }}/{{ db_name }}?useUnicode=true&characterEncoding=utf8&useSSL=false"
+  tags: [ 'service' ]
+
+- name: add application definition file for debug
+  template:
+    src: app.yml.j2
+    dest: /root/docker-compose.yml
+    owner: root
+    group: root
+    mode: 0600
+  tags: [ 'configure' ]
+
+- name: ensure mysql database is accessible
+  mysql_db:
+    login_host: "{{ ec2_instances_running[group][0].public_dns_name }}"
+    login_port: "{{ db_port }}"
+    login_user: "{{ db_user_name }}"
+    login_password: "{{ db_user_password }}"
+    name: "{{ db_name }}"
+    encoding: utf8
+    state: present
+  tags: [ 'service' ]
+
+- name: launch rfb application
+  docker_container:
+    name: "{{ application }}"
+    image: "{{ image_name }}"
+    env:
+      SPRING_PROFILES_ACTIVE: prod,swagger
+      SPRING_DATASOURCE_URL: "{{ datasource_url }}"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_DATASOURCE_USERNAME: "{{ db_user_name }}"
+      SPRING_DATASOURCE_PASSWORD: "{{ db_user_password }}"
+      SPRING_SOCIAL_GOOGLE_CLIENT_ID: "{{ social_google_client_id }}"
+      SPRING_SOCIAL_GOOGLE_CLIENT_SECRET: "{{ social_google_client_secret }}"
+      SPRING_SOCIAL_TWITTER_CLIENT_ID: "{{ vault_social_twitter_client_id }}"
+      SPRING_SOCIAL_TWITTER_CLIENT_SECRET: "{{ vault_social_twitter_client_secret }}"
+    ports:
+      - 8080:8080
+  tags: [ 'service' ]
