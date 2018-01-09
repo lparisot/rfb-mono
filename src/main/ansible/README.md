@@ -38,7 +38,11 @@ You must also change group_vars/all/vars file:
 
 ## Ansible playbooks
 
-These playbooks will create two instances in AWS. We use the CentOS 7 (x86_64) found in AWS market place. Instance type is t2.micro with a volume type gp2 with 8GB. With these values we are free tier eligible.
+```
+$ ansible-playbook site.yml
+```
+
+This playbook will create two instances in AWS. We use the CentOS 7 (x86_64) found in AWS market place. Instance type is t2.micro with a volume type gp2 with 8GB. With these values we are free tier eligible.
 
 So we have rfb-app01 which is the webserver and rfb-db01 which is the database server.
 
@@ -49,10 +53,12 @@ And install all required applications.
 The webserver will contains:
 * an apache server waiting on port 80 and redirecting to port 8080
 * docker
-* the docker container of the application wainting on port 8080
+* the docker container of the application waiting on port 8080
 
 The database server will contains:
 * mariadb waiting on port 3306
+
+## Test
 
 At last, you can connect via your browser to the public DNS of the webserver and see the little web application.
 
